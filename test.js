@@ -1,21 +1,33 @@
-const axios = require('axios');
+const axios = require("axios");
+const cheerio = require("cheerio");
+const log = console.log;
 
-const getBreeds = async () => {
+const getHtml = async () => {
   try {
-    return await axios.get('https://dog.ceo/api/breeds/list/all');
+    return await axios.get("https://www.yna.co.kr/sports/all");
   } catch (error) {
     console.error(error);
   }
 };
 
-const countBreeds = async () => {
-  const breeds = await getBreeds();
+getHtml()
+  .then(html => {
+    let ulList = [];
+    const $ = cheerio.load(html.data);
+    const $bodyList = $("div.headline-list ul").children("li.section02");
 
-  console.log(Object.keys(breeds.data.message).length);
-  
-  if (breeds.data.message) {
-    console.log(`현재 강아지의 수는 ${Object.entries(breeds.data.message).length}입니다.`);
-  }
-};
+    $bodyList.each(function(i, elem) {
+      ulList[i] = {
+          title: $(this).find('strong.news-tl a').text(),
+          url: $(this).find('strong.news-tl a').attr('href'),
+          image_url: $(this).find('p.poto a img').attr('src'),
+          image_alt: $(this).find('p.poto a img').attr('alt'),
+          summary: $(this).find('p.lead').text().slice(0, -11),
+          date: $(this).find('span.p-time').text()
+      };
+    });
 
-countBreeds();
+    const data = ulList.filter(n => n.title);
+    return data;
+  })
+  .then(res => log(res));
