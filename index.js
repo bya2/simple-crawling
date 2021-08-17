@@ -15,29 +15,31 @@ const getHtml = async url => {
   }
 }
 
-getHtml(url).then(html => {
-  const $ = cheerio.load(html.data); // HTML 문자열을 cheerio 객체로 반환
-  const $ulList = $('div#webtoon-list ul#webtoon-list-all').children('li:eq(2)'); // children: 해당되는 태그들의 배열을 반환
+// 즉시 실행 함수
+(async () => {
+  const html = await getHtml(url);
 
-  $ulList.each(function(i, el) {
-    const title = $(this).find('span').text();
-    const url = encodeURI($(this).find('a').attr('href'));
+  const $ = cheerio.load(html.data); // html 문자열을 cheerio 객체로 반환
+  const $ul = $('ul#webtoon-list-all').children('li:eq(0)'); // children: 해당되는 태그들의 배열을 반환
 
-    getHtml(url).then(html => {
-      const $ = cheerio.load(html.data);
-      
-      const info = {
-        title: title,
-        url: url,
-        img: $('div.view-title div.view-img img').attr('src'),
-        score: parseFloat($('div.view-comment').text().split('\n')[5]),
-        comments: parseInt($('div.view-comment span.orangered').text()),
-        good: parseInt($('b#wr_good').text()),
-        person: parseInt($('div.view-comment').text().split(' ').pop().split('\t')[0])
-      }
+  $ul.each(async (i, e) => {
+    const el = $(e);
 
-      const bookDoc = new Book(info);
-      bookDoc.save(err => err ? console.error('Error while saving:\n', err.message) : console.log('Completed saving to database.'));
-    });
-  })
-});
+    const title = el.find('span').text(),
+          url = encodeURI(el.find('a').attr('href'));
+
+    const html = await getHtml(url);
+
+    const $page = cheerio.load(html.data);
+
+    const img = encodeURI($page('div.view-title div.view-img img').attr('src')),
+          score = parseFloat($page('div.view-comment').text().split('\n')[5]),
+          comments = parseInt($page('div.view-comment span.orangered').text()),
+          good = parseInt($page('b#wr_good').text()),
+          person = parseInt($page('div.view-comment').text().split(' ').pop().split('\t')[0]);
+
+    const bookDoc = new Book({ title, url, img, score, comments, good, person});
+    bookDoc.save(err => err ? console.error('Error while saving:\n', err.message) : console.log('Completed saving to database.'));
+    // console.log({ title, url, img, score, comments, good, person}); // Used for testing purposes.
+  });
+})();
