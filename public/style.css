@@ -22,10 +22,21 @@ h1.logo::first-letter {
   font-size: 40px;
 }
 
+h2.sub {
+  margin: 0px;
+  margin-bottom: 12px;
+  font-family: monospace;
+  font-size: 25px;
+}
+
 div.clock {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   border-style: solid;
   margin-bottom: 10px;
-
+  width: 100px;
+  height: auto;
 }
 
 h1.h1-clock {
@@ -42,6 +53,10 @@ table {
 td, th {
   padding: 8px;
   border-style: solid
+}
+
+tr.contents {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .imgrow {

@@ -9,8 +9,8 @@ router.get('/', async (req, res, next) => {
     const docs = await Books.find({});
 
     res.status(200).render('index', {
-      title: 'Newtoki Romance',
-      subtitle: 'Ranking',
+      title: 'Novel Page',
+      subtitle: 'CONTENTS',
       metaData: ['IMG', 'TITLE', 'SCORE', 'COMMENTS', 'GOOD', 'PERSON', 'UPDATED'],
       docs: docs,
     });
