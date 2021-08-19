@@ -1,0 +1,39 @@
+  <table>
+    <!-- Column Titles --> 
+    <tr>
+      {{#each metaData}}
+        <th>
+          {{this}}
+        </th>
+      {{/each}}
+    </tr>
+
+    <!-- Rows -->
+    {{#each docs}}
+      <tr>
+        <td class="imgrow">
+          <a href="{{this._doc.url}}">
+            <img src="{{this._doc.img}}"/>
+          </a>
+        </td>
+        <td>
+          {{this._doc.title}}
+        </td>
+        <td>
+          {{this._doc.score}}
+        </td>
+        <td>
+          {{this._doc.comments}}
+        </td>
+        <td>
+          {{this._doc.good}}
+        </td>
+        <td>
+          {{this._doc.person}}
+        </td>
+        <td>
+          {{this._doc.updated}}
+        </td>
+      </tr>
+    {{/each}}
+  </table>
