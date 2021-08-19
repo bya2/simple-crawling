@@ -1,15 +1,30 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const path = require('path');
+const exphbs = require('express-handlebars');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/simple-crawling'
 
 const routes = require('./routes');
 
+const db = require('./db');
+
 app.use(express.json());
-app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.engine('hbs', exphbs({ extname: 'hbs', defaultLayout: 'main' }));
+app.set('view engine', 'hbs');
 
 app.use(routes);
 
-const server = app.listen(PORT, () => console.log(`Server is listening on: http://localhost:${PORT}`));
+const server = app.listen(PORT, () => console.log(`Server is running at http://localhost:${PORT}`));
+
+server.on('error', err => console.error('Error in listening:\n', err.message));
+server.on('request', (req, res) => handleRequest(req, res));
+
+const handleRequest = (req, res) => {
+  const { url, header } = req;
+
+  console.log({url, header})
+}
