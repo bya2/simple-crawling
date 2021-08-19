@@ -1,0 +1,61 @@
+body {
+  background: #FFFFFF;
+  color: #000000;
+  font-family: Arial,sans-serif;
+  margin: 40px;
+  padding: 10px;
+  font-size: 12px;
+  text-align: center;
+}
+
+h1.logo {
+  margin: 0px;
+  margin-bottom: 12px;
+  background: #8b7e7e;
+  text-align: center;
+  color: #FFFFFF;
+  font-size: 28px;
+  font-style: italic;
+}
+
+h1.logo::first-letter {
+  font-size: 40px;
+}
+
+div.clock {
+  border-style: solid;
+  margin-bottom: 10px;
+
+}
+
+h1.h1-clock {
+  text-align: center;
+  font-family: fantasy;
+}
+
+table {
+  border-collapse: collapse;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+td, th {
+  padding: 8px;
+  border-style: solid
+}
+
+.imgrow {
+  padding: 0;
+}
+
+img {
+  vertical-align: middle;
+  border: 0px;
+  margin: 0;
+  padding: 0;
+  width:100.5%;
+  height: auto;
+}
+
+
+
