@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const dayjs = require('dayjs');
+
+const now = dayjs().format('YY/MM/DD')
 
 const bookSchema = new mongoose.Schema({
   title: { type: String, required: true },
@@ -8,7 +11,8 @@ const bookSchema = new mongoose.Schema({
   comments: Number,
   good: Number,
   person: Number,
-  updated: { type: Date, default: Date.now }
+  updated: { type: String, default: now },
+  saved: { type: Date, default: Date.now }
 })
 
 const Book = mongoose.model('Book', bookSchema);
