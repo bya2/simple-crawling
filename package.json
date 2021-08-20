@@ -21,6 +21,7 @@
     "handlebars": "^4.7.7",
     "handlebars.moment": "^1.0.4",
     "moment": "^2.29.1",
-    "mongoose": "^5.13.7"
+    "mongoose": "^5.13.7",
+    "puppeteer": "^10.2.0"
   }
 }
