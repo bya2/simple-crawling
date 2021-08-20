@@ -15,11 +15,26 @@ const getHtml = async url => {
   }
 }
 
+const loadData = async url => {
+  try {
+    const html = await getHtml(url);
+    const $ = cheerio.load(html.data);
+    return $;
+  } catch (err) {
+    console.error(`Error in loading data:\n${err.message}`);
+    return null;
+  }
+}
+
 // 즉시 실행 함수
 (async () => {
-  const html = await getHtml(url);
+  const $ = loadData(url);
 
-  const $ = cheerio.load(html.data);
+  if (!$) {
+    console.log('No data loaded.');
+    return;
+  }
+  
   const $gridLayout = $('.container .grid-layout').children('.grid-item:eq(7)');
 
   $gridLayout.each(async (i, e) => {
@@ -46,9 +61,12 @@ const getHtml = async url => {
       review: review
     }
 
-    const html = await getHtml(product.url);
+    const $page = loadData(url);
 
-    const $page = cheerio.load(html.data);
+    if (!$page) {
+      console.log('No data loaded.');
+      return;
+    }
 
     const $meta = $page('.product-link').children('a');
 
