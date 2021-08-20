@@ -26,6 +26,42 @@ const loadData = async url => {
   }
 }
 
+const kakaoPage = async $ => {
+
+}
+
+const munpia = $ => {
+  const $meta = $('.meta-etc.meta').children('dd');
+  const meta = [];
+  $meta.each((i, e) => {
+    const el = $(e);
+    meta.push(el.text());
+  });
+
+  const info = {
+    img: `https://${$('.dt.cover-box img').attr('src')}`,
+    bigImg: `https://${$('.bigImgs img').attr('src')}`,
+    status: $('.novel-real-period span').text(),
+    registered: meta[0],
+    updated: meta[1],
+    serials: meta[2].split(' ')[0],
+    views: parseInt(meta[3].replace(/,/g, '')), // g: 발생할 모든 패턴 전역 검색
+    recommendations: parseInt(meta[4].replace(/,/g, '')),
+    characters: parseInt(meta[5].replace(/,/g, '')),
+    preferred: parseInt($('.fr .text b').text().replace(',', ''))
+  }
+
+  return info;
+}
+
+const naverSeries = async $ => {
+
+}
+
+const ridibooks = async $ => {
+
+}
+
 // 즉시 실행 함수
 (async () => {
   const $ = loadData(url);
@@ -36,6 +72,8 @@ const loadData = async url => {
   }
   
   const $gridLayout = $('.container .grid-layout').children('.grid-item:eq(7)');
+
+  const products = [];
 
   $gridLayout.each(async (i, e) => {
     const el = $(e);
@@ -68,17 +106,36 @@ const loadData = async url => {
       return;
     }
 
-    const $meta = $page('.product-link').children('a');
+    const $link = $page('.product-link').children('a');
 
-    console.log($meta.html());
-
-    $meta.each(async (i, e) => {
+    $link.each(async (i, e) => {
       const el = $(e);
 
       const name = el.text();
       const url = encodeURI(el.attr('href'));
 
-      product.platforms.push({name, url});
+      let info;
+
+      const $pf = loadData(url);
+
+      switch (name) {
+        case '카카오페이지':
+          info = kakaoPage($pf);
+          break;
+        case '문피아':
+          info = munpia($pf);
+          break;
+        case '네이버시리즈':
+          info = naverSeries($pf);
+          break;
+        case '리디북스':
+          info = ridibooks($pf);
+          break;
+        default:
+          break;
+      }
+
+      product.platforms.push({name, url, info});
     })
 
     console.log('ok', product.platforms);
