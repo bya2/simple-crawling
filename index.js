@@ -2,16 +2,16 @@ require('dotenv').config();
 const axios = require('axios').default;
 const cheerio = require('cheerio');
 
-const db = require('./db');
-const Book = require('./models/Book');
+// const db = require('./db');
+// const Book = require('./models/Book');
 
-const url = process.env.TARGET;
+const url = process.env.TARGET || 'https://sosul.network/series/comments/';
 
 const getHtml = async url => {
   try {
     return await axios.get(url);
   } catch (err) {
-    console.error('Error in get method of axios:\n', err.message);
+    console.error(`Error in get method of axios:\n${err.message}`);
   }
 }
 
@@ -19,27 +19,50 @@ const getHtml = async url => {
 (async () => {
   const html = await getHtml(url);
 
-  const $ = cheerio.load(html.data); // html 문자열을 cheerio 객체로 반환
-  const $ul = $('ul#webtoon-list-all').children('li:eq(0)'); // children: 해당되는 태그들의 배열을 반환
+  const $ = cheerio.load(html.data);
+  const $gridLayout = $('.container .grid-layout').children('.grid-item:eq(7)');
 
-  $ul.each(async (i, e) => {
+  $gridLayout.each(async (i, e) => {
     const el = $(e);
 
-    const title = el.find('span').text(),
-          url = encodeURI(el.find('a').attr('href'));
+    const [avgScore, reviews] = el.find('.product-reviews').text().split(' ');
 
-    const html = await getHtml(url);
+    const product = {
+      url: encodeURI(`https://sosul.network/${el.find('.product-image a').attr('href')}`),
+      img: el.find('.product-image img').attr('data-src'),
+      tags: el.find('.product-category').text(),
+      title: el.find('.product-title a').html(),
+      avgScore: parseFloat(avgScore),
+      reviews: parseInt(reviews[1]),
+      introduction: el.find('.product-introduction').text(),
+      platforms: []
+    }
+
+    const review = el.find('.content-txt.mt-1').html() || el.find('.blur-effect').html();
+    
+    const latestReview = {
+      nickname: el.find('.product-nickname strong').text(),
+      updated: el.find('small.text-muted.float-right').text(),
+      review: review
+    }
+
+    const html = await getHtml(product.url);
 
     const $page = cheerio.load(html.data);
 
-    const img = encodeURI($page('div.view-title div.view-img img').attr('src')),
-          score = parseFloat($page('div.view-comment').text().split('\n')[5]),
-          comments = parseInt($page('div.view-comment span.orangered').text()),
-          good = parseInt($page('b#wr_good').text()),
-          person = parseInt($page('div.view-comment').text().split(' ').pop().split('\t')[0]);
+    const $meta = $page('.product-link').children('a');
 
-    const bookDoc = new Book({ title, url, img, score, comments, good, person});
-    bookDoc.save(err => err ? console.error('Error while saving:\n', err.message) : console.log('Completed saving to database.'));
-    // console.log({ title, url, img, score, comments, good, person}); // Used for testing purposes.
+    console.log($meta.html());
+
+    $meta.each(async (i, e) => {
+      const el = $(e);
+
+      const name = el.text();
+      const url = encodeURI(el.attr('href'));
+
+      product.platforms.push({name, url});
+    })
+
+    console.log('ok', product.platforms);
   });
 })();
