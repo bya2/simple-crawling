@@ -2,24 +2,48 @@ body {
   background: #FFFFFF;
   color: #000000;
   font-family: Arial,sans-serif;
-  margin: 40px;
-  padding: 10px;
+  margin: 0;
+  padding: 0;
   font-size: 12px;
   text-align: center;
 }
 
+.header-inner {
+  box-shadow: 0 12px 6px rgb(0 0 0 / 6%);
+  top: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  margin: 0 auto;
+  padding: 0;
+  text-decoration: none;
+  width: 100%;
+  height: 80px;
+  transition: top 8s ease-in-out;
+  background-color: #FFFFFF;
+  opacity: 80%;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 17px;
+}
+
+h1.inner {
+  vertical-align: 100px;
+}
+
 h1.logo {
-  margin: 0px;
-  margin-bottom: 12px;
-  background: #8b7e7e;
+  margin: 50px;
+  margin-top: 90px;
+  margin-bottom: 40px;
+  padding: 0px;
+  background: #9b9999;
   text-align: center;
   color: #FFFFFF;
-  font-size: 28px;
-  font-style: italic;
+  font-size: 50px;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 h1.logo::first-letter {
-  font-size: 40px;
+  font-size: 70px;
 }
 
 h2.sub {
@@ -27,16 +51,24 @@ h2.sub {
   margin-bottom: 12px;
   font-family: monospace;
   font-size: 25px;
+  margin-left: 315px;
+  vertical-align: -10px;
 }
 
 div.clock {
-  display: block;
-  margin-left: auto;
+  font-family: fantasy;
+  margin-left: 90px;
   margin-right: auto;
   border-style: solid;
   margin-bottom: 10px;
-  width: 100px;
+  width: 200px;
   height: auto;
+  
+}
+
+#clock {
+  display: inline-block;
+  padding-left: 5px
 }
 
 h1.h1-clock {
@@ -63,7 +95,7 @@ tr.contents {
   padding: 0;
 }
 
-img {
+img.timg {
   vertical-align: middle;
   border: 0px;
   margin: 0;
@@ -72,5 +104,35 @@ img {
   height: auto;
 }
 
+.list-inline {
+  font-family: monospace;
+  font-size: 25px;
+}
 
+div#siteList {
+  margin-top: -5px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+  border-style: solid;
+  width: 400px;
+  height: 80px;
+  padding-top: 10px;
+}
+
+div.site {
+  vertical-align: middle;
+  width: 120px;
+  height: 70px;
+  display: inline-block;
+  
+}
+
+a.stie {
+  vertical-align: middle;
+}
+
+#inline-tt {
+  display: inline-block;
+}
 
