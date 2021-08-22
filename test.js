@@ -1,3 +1,4 @@
+require('dotenv').config();
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
@@ -23,7 +24,7 @@ const userAgent = process.env.USER_AGENT || 'Mozilla/5.0 (Macintosh; Intel Mac O
 
     const _products = deepClone(__products);
 
-    Promise.all(_products.map(async el => {
+    await Promise.all(_products.map(async el => {
       try {
 
         const page = await browser.newPage();
@@ -54,7 +55,7 @@ const userAgent = process.env.USER_AGENT || 'Mozilla/5.0 (Macintosh; Intel Mac O
       }
     }));
 
-    fs.writeFileSync('platformsInfo.json', JSON.stringify(_products.platforms));
+    fs.writeFileSync('platformsInfo11.json', JSON.stringify(_products));
 
 
     await browser.close();
