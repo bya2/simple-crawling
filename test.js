@@ -7,11 +7,21 @@ const userAgent = process.env.USER_AGENT || 'Mozilla/5.0 (Macintosh; Intel Mac O
   try {
     const browser = await puppeteer.launch();
 
-    const cloneObj = obj => {
-      return JSON.parse(JSON.stringify(obj));
+    const deepClone = obj => {
+      if (obj === null || typeof obj !== 'object') {
+        return obj;
+      }
+
+      const result = Array.isArray(obj) ? [] : {};
+
+      for (const key of Object.keys(obj)) {
+        result[key] = deepClone(obj[key]);
+      }
+
+      return result;
     }
 
-    const _products = cloneObj(__products);
+    const _products = deepClone(__products);
 
     Promise.all(_products.map(async el => {
       try {
