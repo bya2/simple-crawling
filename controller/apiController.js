@@ -69,7 +69,7 @@ module.exports = {
         commentId: await page.$eval(productPage.review.commentId, e => e.id),
         good: await page.$eval(productPage.review.good, e => e.innerHTML),
         nickname: await page.$eval(productPage.review.nickname, e => e.innerHTML),
-        rate: await parseFloat(page.$eval(productPage.review.rate, e => e['data-rateit-value'])),
+        rate: parseFloat(await page.$eval(productPage.review.rate, e => e['data-rateit-value'])),
         updated: await page.$eval(productPage.review.updated, e => e.innerHTML),
       }
 
