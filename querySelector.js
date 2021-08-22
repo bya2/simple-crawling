@@ -1,5 +1,5 @@
 module.exports = {
-  comments: {
+  commentsPage: {
     gridLayout: {
       item: 'body > div.body-inner > section.series-list.recommendation-list.pt-3 > div > div > div.grid-item:nth-child(1)', // TEST ONE
       items: 'body > div.body-inner > section.series-list.recommendation-list.pt-3 > div > div > div.grid-item', // LIST
@@ -13,16 +13,16 @@ module.exports = {
       introduction: 'div > div.card-body.p-4 > div > div.col-8.col-sm-9 > div > p', // TEXT
       rate: 'div > div.card-body.p-4 > div > div.col-8.col-sm-9 > div > div.product-reviews' // TEXT
     },
-    review: {
+    comment: {
       commentId: 'div > div.card-footer.text-left.p-4 div.content-wrap', // ATTR:id
       nickname: 'div > div.card-footer.text-left.p-4 > div.product-nickname.one-line > a:nth-child(1) > strong', // TEXT
-      comment: 'div > div.card-footer.text-left.p-4 div.content-wrap div.content-txt', // HTML
+      content: 'div > div.card-footer.text-left.p-4 div.content-wrap div.content-txt', // HTML
       blurEffect: 'div > div.card-footer.text-left.p-4 > div.content-wrap > div.blur-effect', // HTML
       rate: 'div > div.card-footer.text-left.p-4 > span', // ATTR:data-rateit-value
       updated: 'div > div.card-footer.text-left.p-4 > div.product-nickname.one-line > small', // TEXT
     },
   },
-  series: {
+  productPage: {
     product: {
       platforms: '#product-page > div > div > div > div.col-lg-4.mb-4 > div.widget.p-cb > div.product-description > div.product-meta > div > a', // TEXT, ATTR:href
     },
@@ -38,7 +38,18 @@ module.exports = {
   },
   platform: {
     kakaoPage: {
+      views: '#root > div.jsx-885677927.mainContents.mainContents_pc.hiddenMenuContent > div > div > div.css-sgpdfd > div > div.css-1ydjg2i > div.countInfoBox.css-1lmggoi > div.css-bvpmim > div', // TEXT
+      comments: '#root > div.jsx-885677927.mainContents.mainContents_pc.hiddenMenuContent > div > div > div.css-sgpdfd > div > div.css-1ydjg2i > div.countInfoBox.css-1lmggoi > div.css-11vmqkl > div', // TEXT
+      status: '#root > div.jsx-885677927.mainContents.mainContents_pc.hiddenMenuContent > div > div > div.css-sgpdfd > div > div.css-1ydjg2i > div.css-1nlm7ol > div.css-ymlwac > div:nth-child(1)', // TEXT
+      // author: '#root > div.jsx-885677927.mainContents.mainContents_pc.hiddenMenuContent > div > div > div.css-sgpdfd > div > div.css-1ydjg2i > div.css-1nlm7ol > div.css-ymlwac > div:nth-child(2)', // TEXT
+      // introductionButton: '#root > div.jsx-885677927.mainContents.mainContents_pc.hiddenMenuContent > div > div > div.css-sgpdfd > div > div.css-1ydjg2i > div.css-1nlm7ol > div.css-82j595 > button.css-zkp4tp', // CLICK
       
+      bestComment: {
+        nickname: '#root > div.jsx-885677927.mainContents.mainContents_pc.hiddenMenuContent > div > div > div.css-tgplph > div > div.css-l3rx45 > div:nth-child(1) > div > div.css-5rfesd > div.css-4cffwv > div.css-1rtcrhv', // TEXT
+        content: '#root > div.jsx-885677927.mainContents.mainContents_pc.hiddenMenuContent > div > div > div.css-tgplph > div > div.css-l3rx45 > div:nth-child(1) > div > div.css-5rfesd > div.css-av465m', // TEXT
+        good: '#root > div.jsx-885677927.mainContents.mainContents_pc.hiddenMenuContent > div > div > div.css-tgplph > div > div.css-l3rx45 > div:nth-child(1) > div > div.css-5rfesd > div.css-1mwn3f5 > div:nth-child(1) > div', // TEXT
+        comments: '#root > div.jsx-885677927.mainContents.mainContents_pc.hiddenMenuContent > div > div > div.css-tgplph > div > div.css-l3rx45 > div:nth-child(1) > div > div.css-5rfesd > div.css-1mwn3f5 > div:nth-child(2) > div', // TEXT
+      }
     },
     munpia: {
 
