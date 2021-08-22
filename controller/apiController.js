@@ -82,10 +82,10 @@ module.exports = {
       const info = {
         comments: await page.$eval(platformPage.kakaoPage.comments, e => e.innerHTML),
         status: await page.$eval(platformPage.kakaoPage.status, e => e.innerHTML),
-        views: await page.$eval(platformPage.kakaoPage.views, e => innerHTML),
+        views: await page.$eval(platformPage.kakaoPage.views, e => e.innerHTML),
         bestComment: {
-          comments: await page.$eval(platformPage.kakaoPage.bestComment.comments, e => innerHTML),
-          content: await page.$eval(platformPage.kakaoPage.bestComment.content, e => innerHTML),
+          comments: await page.$eval(platformPage.kakaoPage.bestComment.comments, e => e.innerHTML),
+          content: await page.$eval(platformPage.kakaoPage.bestComment.content, e => e.innerHTML),
           good: await page.$eval(platformPage.kakaoPage.bestComment.good, e => e.innerHTML),
           nickname: await page.$eval(platformPage.kakaoPage.bestComment.nickname, e => e.innerHTML),
         },
