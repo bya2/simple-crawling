@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
+const fs = require('fs');
 
 const qs = require('../querySelector');
 const { commentsPage, productPage } = require('./apiController');
@@ -19,27 +20,41 @@ const { commentsPage, productPage } = require('./apiController');
 
     const page = await browser.newPage();
 
+    // Comments page
     await page.setUserAgent(userAgent);
     await page.goto(URL);
     console.log(await page.evaluate('navigator.userAgent'));
-    await page.waitForSelector(qs.commentsPage.gridLayout.item, { timeout: 1000 });
+    await page.waitForSelector(qs.commentsPage.gridLayout.items, { timeout: 1000 });
 
     const content = await page.content();
     const $ = cheerio.load(content);
-    const commentsInfo = commentsPage($);
+    const { _comments, _products, updates } = commentsPage($);
 
     await page.waitForTimeout(2000);
     await page.close();
 
-    for (const _products of commentsInfo) {
-    }
+  
+    // Product page
+    await Promise.all(_products.map(async (e, i) => {
+      try {
+        const page = await browser.newPage();
+        await page.setUserAgent(userAgent);
+        await page.goto(e.href);
+        console.log(await page.evaluate('navigator.userAgent'));
 
-    const platforms = await productPage(page);
-    console.log(platforms);
+        e.platforms = await productPage.getPlatforms(page);
+        e.bestComment = await productPage.getBestComment(page);
+
+        await page.waitForTimeout(2000);
+        await page.close();
+      } catch (err) {
+        console.error(err);
+      }
+    }));
 
 
-    await page.waitForTimeout(3000);
-    await page.close();
+    fs.writeFileSync('productPages.json', JSON.stringify(_products));
+
   } catch (err) {
     console.error(`Error in puppeteer processing:\n${err}`);
   } finally {
