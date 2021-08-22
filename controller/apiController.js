@@ -79,31 +79,104 @@ module.exports = {
 
   platformPage: {
     kakaoPage: async page => {
-      const info = {
-        comments: await page.$eval(platformPage.kakaoPage.comments, e => e.innerHTML),
-        status: await page.$eval(platformPage.kakaoPage.status, e => e.innerHTML),
-        views: await page.$eval(platformPage.kakaoPage.views, e => e.innerHTML),
-        bestComment: {
-          comments: await page.$eval(platformPage.kakaoPage.bestComment.comments, e => e.innerHTML),
-          content: await page.$eval(platformPage.kakaoPage.bestComment.content, e => e.innerHTML),
-          good: await page.$eval(platformPage.kakaoPage.bestComment.good, e => e.innerHTML),
-          nickname: await page.$eval(platformPage.kakaoPage.bestComment.nickname, e => e.innerHTML),
-        },
+      try {
+        const info = {
+          comments: parseInt(await page.$eval(platformPage.kakaoPage.comments, e => e.innerHTML)),
+          status: await page.$eval(platformPage.kakaoPage.status, e => e.innerHTML),
+          views: await page.$eval(platformPage.kakaoPage.views, e => e.innerHTML),
+          bestComment: {
+            comments: await page.$eval(platformPage.kakaoPage.bestComment.comments, e => e.innerHTML),
+            content: await page.$eval(platformPage.kakaoPage.bestComment.content, e => e.innerHTML),
+            good: await page.$eval(platformPage.kakaoPage.bestComment.good, e => e.innerHTML),
+            nickname: await page.$eval(platformPage.kakaoPage.bestComment.nickname, e => e.innerHTML),
+          },
+        }
+        return info;
+      } catch (err) {
+        console.error(`Error in Kakao Page:\n${err.message}`);
       }
-
-      return info;
     },
 
     munpia: async page => {
+      try {
+        const info = {
+          bigImage: await page.$eval(platformPage.munpia.bigImage, e => e.src),
+          characters: await page.$eval(platformPage.munpia.characters, e => e.innerHTML),
+          image: await page.$eval(platformPage.munpia.image, e => e.src),
+          isCompleted: await page.$eval(platformPage.munpia.isCompleted, e => e.innerHTML),
+          preferred: await page.$eval(platformPage.munpia.preferred, e => e.innerHTML),
+          recommended: await page.$eval(platformPage.munpia.recommended, e => e.innerHTML),
+          registered: await page.$eval(platformPage.munpia.registered, e => e.innerHTML),
+          serials: await page.$eval(platformPage.munpia.serials, e => e.innerHTML),
+          // tab: await page.$eval(platformPage.munpia.tab, e => e.innerHTML),
+          updated: await page.$eval(platformPage.munpia.updated, e => e.innerHTML),
+          views: await page.$eval(platformPage.munpia.views, e => e.innerHTML),
 
+          bestComment: {
+            comments: await page.$eval(platformPage.munpia.bestComment.comments, e => e.innerHTML),
+            content: await page.$eval(platformPage.munpia.bestComment.content, e => e.innerHTML),
+            good: await page.$eval(platformPage.munpia.bestComment.good, e => e.innerHTML),
+            id: await page.$eval(platformPage.munpia.bestComment.id, e => e.innerHTML),
+            title: await page.$eval(platformPage.munpia.bestComment.title, e => e.innerHTML),
+            updated: await page.$eval(platformPage.munpia.bestComment.updated, e => e.innerHTML),
+            views: await page.$eval(platformPage.munpia.bestComment.views, e => e.innerHTML),
+          }
+        }
+        return info;
+      } catch (err) {
+        console.error(`Error in munpia:\n${err.message}`);
+      }
     },
 
     naverSeries: async page => {
+      try {
+        const info = {
+          comments: parseInt(await page.$eval(platformPage.naverSeries.comments, e => e.innerHTML)),
+          image: await page.$eval(platformPage.naverSeries.image, e => e.src),
+          preferred: parseInt(await page.$eval(platformPage.naverSeries.preferred, e => e.innerHTML)),
+          rate: parseFloat(await page.$eval(platformPage.naverSeries.rate, e => e.innerHTML)),
+          total: parseInt(await page.$eval(platformPage.naverSeries.total, e => e.innerHTML)),
 
+          bestComment: {
+            bad: await page.$eval(platformPage.naverSeries.bestComment.bad, e => e.innerHTML),
+            comments: await page.$eval(platformPage.naverSeries.bestComment.comments, e => e.innerHTML),
+            content: await page.$eval(platformPage.naverSeries.bestComment.content, e => e.innerHTML),
+            good: await page.$eval(platformPage.naverSeries.bestComment.good, e => e.innerHTML),
+            id: await page.$eval(platformPage.naverSeries.bestComment.id, e => e.innerHTML),
+            nickname: await page.$eval(platformPage.naverSeries.bestComment.nickname, e => e.innerHTML),
+            updated: await page.$eval(platformPage.naverSeries.bestComment.updated, e => e.innerHTML),
+          }
+        }
+        return info;
+      } catch (err) {
+        console.error(`Error in munpia:\n${err.message}`);
+      }
     },
 
     ridibooks: async page => {
-      
+      try {
+        const info = {
+          ISBN: await page.$eval(platformPage.ridibooks.ISBN, e => e.innerHTML),
+          comments: await page.$eval(platformPage.ridibooks.comments, e => e.innerHTML),
+          comments_puchaser: await page.$eval(platformPage.ridibooks.comments_puchaser, e => e.innerHTML),
+          image: await page.$eval(platformPage.ridibooks.image, e => e.innerHTML),
+          participants: await page.$eval(platformPage.ridibooks.participants, e => e.innerHTML),
+          preferred: await page.$eval(platformPage.ridibooks.preferred, e => e.innerHTML),
+          published_date: await page.$eval(platformPage.ridibooks.published_date, e => e.innerHTML),
+          rate: await page.$eval(platformPage.ridibooks.rate, e => e.innerHTML),
+          // tab: await page.$eval(platformPage.ridibooks.tab, e => e.innerHTML),
+
+          bestComment: {
+            content: await page.$eval(platformPage.ridibooks.bestComment.content, e => e.innerHTML),
+            good: await page.$eval(platformPage.ridibooks.bestComment.good, e => e.innerHTML),
+            id: await page.$eval(platformPage.ridibooks.bestComment.id, e => e.innerHTML),
+            updated: await page.$eval(platformPage.ridibooks.bestComment.updated, e => e.innerHTML),
+          }
+        }
+        return info;
+      } catch (err) {
+        console.error(`Error in munpia:\n${err.message}`);
+      }
     }
   }
 
