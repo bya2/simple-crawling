@@ -1,4 +1,4 @@
-const { commentsPage, productPage } = require('../querySelector');
+const { commentsPage, productPage, platformPage } = require('../querySelector');
 
 
 module.exports = {
@@ -75,6 +75,36 @@ module.exports = {
 
       return comment;
     },
+  },
+
+  platformPage: {
+    kakaoPage: async page => {
+      const info = {
+        comments: await page.$eval(platformPage.kakaoPage.comments, e => e.innerHTML),
+        status: await page.$eval(platformPage.kakaoPage.status, e => e.innerHTML),
+        views: await page.$eval(platformPage.kakaoPage.views, e => innerHTML),
+        bestComment: {
+          comments: await page.$eval(platformPage.kakaoPage.bestComment.comments, e => innerHTML),
+          content: await page.$eval(platformPage.kakaoPage.bestComment.content, e => innerHTML),
+          good: await page.$eval(platformPage.kakaoPage.bestComment.good, e => e.innerHTML),
+          nickname: await page.$eval(platformPage.kakaoPage.bestComment.nickname, e => e.innerHTML),
+        },
+      }
+
+      return info;
+    },
+
+    munpia: async page => {
+
+    },
+
+    naverSeries: async page => {
+
+    },
+
+    ridibooks: async page => {
+      
+    }
   }
 
 }

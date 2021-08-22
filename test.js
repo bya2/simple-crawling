@@ -1,39 +1,46 @@
-const fs = require('fs');
 const puppeteer = require('puppeteer');
+const fs = require('fs');
 
-const qs = require('./querySelector');
-const commentsPage = require('./page/commentsPage');
-const seriesPage = require('./page/seriesPage');
+const _products = require('./productPages.json');
 
-(async () => {
-  const url = process.env.TARGET_URL || `${process.env.HOST || 'https://sosul.network'}/series/comments/`;
-  const options = {
-    headless: true,
-  }
-
-  let browser;
-
+(async() => {
   try {
-    browser = await puppeteer.launch(options);
-    const page = await browser.newPage();
+    const browser = await puppeteer.launch();
 
-    await page.setUserAgent(process.env.USER_AGENT || 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.0 Safari/537.36');
+    Promise.all(_products.map(el => {
+      try {
+        const page = await browser.newPage();
+        await page.setUserAgent(userAgent);
+        await page.goto(el.href);
+        console.log(await page.evaluate('navigator.userAgent'));
 
-    await page.goto(url);
-    console.log(await page.evaluate('navigator.userAgent'));
-    await page.waitForSelector(qs.comments.gridLayout.items, { timeout: 10000 });
+        switch (el.name) {
+          case '카카오페이지':
+            el.assign(await platformPage.kakaoPage(page));
+            break;
+          case '문피아':
+            el.assign(await platformPage.munpia(page));
+            break;
+          case '네이버시리즈':
+            el.assign(await platformPage.naverSeries(page));
+            break;
+          case '리디북스':
+            el.assign(await platformPage.ridibooks(page));
+            break;
+          default: break;
+        }
 
-    commentsPage(page)
-      .then(result => {
-        console.log(result);
-      })
-      .catch(err => console.error(`Error in comments page:\n${err.message}`));
+        await page.waitForTimeout(2000);
+        await page.close();
+      } catch (err) {
+        console.error(err);
+      }
+    }));
 
-    await page.waitForTimeout(3000);
-    await page.close();
-  } catch (err) {
-    console.error(`Error in processing:\n${err.message}`);
-  } finally {
+    fs.writeFileSync('platformsInfo.json', JSON.stringify(_products.platforms));
+
     await browser.close();
+  } catch (err) {
+    console.error(err);
   }
 })();
