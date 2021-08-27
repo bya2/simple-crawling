@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-module.exports = mongoose.model('NaverSeries', new mongoose.Schema({
+const naverSeriesSchema = new mongoose.Schema({
   image: {
     type: String,
   },
@@ -16,7 +16,9 @@ module.exports = mongoose.model('NaverSeries', new mongoose.Schema({
   rate: {
     type: Number,
   }
-}))
+})
+
+module.exports = naverSeriesSchema;
 
 
 

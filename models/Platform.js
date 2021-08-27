@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
-module.exports = mongoose.model('Platform', new mongoose.Schema({
+const kakaoPageSchema = require('./KakaoPage');
+const munpiaSchema = require('./Munpia');
+const naverSeriesSchema = require('./NaverSeries');
+const ridibooksSchema = require('./Ridibooks');
+
+const platformSchema = mongoose.Schema({
   url: {
     type: String,
     required: true,
@@ -10,4 +15,7 @@ module.exports = mongoose.model('Platform', new mongoose.Schema({
     type: String,
     required: true,
   },
-}))
+  info: [kakaoPageSchema, munpiaSchema, naverSeriesSchema, ridibooksSchema],
+});
+
+module.exports = platformSchema;

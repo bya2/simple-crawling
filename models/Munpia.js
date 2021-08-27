@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-module.exports = mongoose.model('Munpia', new mongoose.Schema({
+const munpiaSchema = new mongoose.Schema({
   image: {
     type: String,
   },
@@ -13,10 +13,9 @@ module.exports = mongoose.model('Munpia', new mongoose.Schema({
   preferred: {
     type: Number,
   },
-  // isCompleted: {
-  //   type: String,
-  // }
-}))
+});
+
+module.exports = munpiaSchema;
 
 
 // munpia: {

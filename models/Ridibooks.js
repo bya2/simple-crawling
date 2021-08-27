@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-module.exports = mongoose.model('Ridibooks', new mongoose.Schema({
+const ridibooksSchema = new mongoose.Schema({
   image: {
     type: String,
   },
@@ -16,7 +16,9 @@ module.exports = mongoose.model('Ridibooks', new mongoose.Schema({
   rate: {
     type: Number,
   },
-}))
+});
+
+module.exports = ridibooksSchema;
 
 
 

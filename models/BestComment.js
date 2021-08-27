@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-module.exports = mongoose.model('BestComment', new mongoose.Schema({
+const bestCommentSchema = new mongoose.Schema({
   commentId: {
     type: String,
     required: String,
@@ -23,7 +23,9 @@ module.exports = mongoose.model('BestComment', new mongoose.Schema({
   updated: {
     type: String,
   }
-}))
+});
+
+module.exports = bestCommentSchema;
 
 
 

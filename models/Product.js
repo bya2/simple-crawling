@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
-module.exports = mongoose.model('Product', new mongoose.Schema({
+const platformSchema = require('./Platform');
+
+const productSchema = new mongoose.Schema({
   url: {
     type: String,
     required: true,
@@ -18,15 +20,18 @@ module.exports = mongoose.model('Product', new mongoose.Schema({
     required: true,
   },
   categories: {
-    type: String,
+    type: Array,
   },
   introduction: {
     type: String,
   },
   rate: {
     type: Number,
-  }
-}));
+  },
+  platforms: platformSchema,
+})
+
+module.exports = mongoose.model('Product', productSchema);
 
 // href: 'div > div.card-body.p-4 > div > div.col-4.col-sm-3.pr-0 > div > a', // ATTR:href
 // image: 'div > div.card-body.p-4 > div > div.col-4.col-sm-3.pr-0 > div > a > img', // ATTR:data-src

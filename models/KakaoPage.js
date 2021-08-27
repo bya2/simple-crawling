@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-module.exports = mongoose.model('KakaoPage', new mongoose.Schema({
+const kakaoPageSchema = new mongoose.Schema({
   image: {
     type: String,
   },
@@ -10,7 +10,9 @@ module.exports = mongoose.model('KakaoPage', new mongoose.Schema({
   comments: {
     type: Number,
   }
-}));
+});
+
+module.exports = kakaoPageSchema;
 
 
 
