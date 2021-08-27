@@ -1,4 +1,4 @@
-const { commentsPage } = require('../../../querySelector');
+const { commentsPage } = require('../selectors');
 
 // **Puppeteer에 Cheerio를 적용하여 HTML을 가져온 이유**
 // 셀렉터를 통해 태그 목록에 접근한 후, 반복문을 통해 해당 태그마다 셀렉터를 통해 HTML을 추출하기에 Cheerio가 더 적합하기 때문

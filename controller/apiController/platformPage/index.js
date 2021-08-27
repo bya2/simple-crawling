@@ -1,4 +1,4 @@
-const { platformPage } = require('../../../querySelector');
+const { platformPage } = require('../selectors');
 
 module.exports = {
   /**
