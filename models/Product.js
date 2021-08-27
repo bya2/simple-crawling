@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
-const platformSchema = require('./Platform');
+const platformSchema = require('./schema/Platform');
+const bestCommentSchema = require('./schema/BestComment');
 
 const productSchema = new mongoose.Schema({
   url: {
@@ -29,6 +30,7 @@ const productSchema = new mongoose.Schema({
     type: Number,
   },
   platforms: platformSchema,
+  bestComment: bestCommentSchema,
 })
 
 module.exports = mongoose.model('Product', productSchema);
