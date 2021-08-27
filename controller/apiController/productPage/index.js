@@ -1,4 +1,4 @@
-const { productPage } = require('../../../querySelector');
+const { productPage } = require('../selectors');
 
 module.exports = {
   // 해당 작품의 페이지에서 해당 작품이 서비스되는 플랫폼 정보를 스크랩하는 함수
@@ -31,16 +31,16 @@ module.exports = {
   // 프로미스를 병렬적으로 처리해서 웹 페이지 로딩에 의해 순서에 따라 시간 제약을 받지 않고 배열 생성
   // 셀렉터 키 배열과 프로미스 배열로 reduce함수를 통해 객체 생성
   getBestComment: async page => {
-    const review = productPage.review;
-    const { commentId, rate } = review;
+    const comment = productPage.comment;
+    const { commentId, rate } = comment;
 
-    const promises = await Promise.all(Object.values(review).map(el => {
+    const promises = await Promise.all(Object.values(comment).map(el => {
       if (el === commentId) return page.$eval(el, e => e.id);
       if (el === rate) return page.$eval(el, e => e.getAttribute('data-rateit-value'));
       return page.$eval(el, e => e.innerHTML);
     }));
 
-    const obj = Object.keys(review).reduce((obj, t, i) => (obj[t] = promises[i], obj), {});
+    const obj = Object.keys(comment).reduce((obj, t, i) => (obj[t] = promises[i], obj), {});
     obj.rate = parseFloat(obj.rate);
 
     return obj;
