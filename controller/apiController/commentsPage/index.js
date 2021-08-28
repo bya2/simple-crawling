@@ -12,7 +12,7 @@ module.exports = async $ => {
   try{
     // Selector에 해당하는 태그 목록
     const els = $(commentsPage.gridLayout.items);
-    const comments = [], products = [];
+    const commentObjs = [], productObjs = [];
     let commentUp = 0, productUp = 0;
 
     console.log(12);
@@ -24,11 +24,11 @@ module.exports = async $ => {
     for (const e of els) {
       const el = $(e);
 
-      // **코멘트 정보**
+      // // // 코멘트 정보 // // //
       // 중복 방지
       const commentId = el.find(commentsPage.comment.commentId).attr('id');
-      // const isComment = await Comment.findOne({ commentId: commentId }) ? true : false;
-      // if (isComment) break;
+      const isComment = await Comment.findOne({ commentId: commentId }) ? true : false;
+      if (isComment) break;
 
       // 흐림 제거
       const content = el.find(commentsPage.comment.content) || el.find(commentsPage.comment.blurEffect);
@@ -37,7 +37,7 @@ module.exports = async $ => {
       console.log(123);
 
       // 배열 추가
-      comments.push({
+      commentObjs.push({
         commentId: commentId,
         content: content.html(),
         nickname: el.find(commentsPage.comment.nickname).text(),
@@ -51,10 +51,10 @@ module.exports = async $ => {
       // 업데이트된 코멘트 갯수
       commentUp += 1;
 
-      // **작품 정보**
+      // // // 작품 정보 // // //
       // 중복 방지
-      // const isProduct = await Product.findOne({ productId: productId }) ? true : false;
-      // if (isProduct) continue;
+      const isProduct = await Product.findOne({ productId: productId }) ? true : false;
+      if (isProduct) continue;
 
       console.log(1234111111);
       
@@ -64,7 +64,7 @@ module.exports = async $ => {
       console.log(1234000000);
 
       // 배열 추가
-      products.push({
+      productObjs.push({
         author: el.find(commentsPage.product.author).text(),
         categories: el.find(commentsPage.product.categories).text().split(', '),
         count: parseInt(count.replace(/^\(|\)$/g, '')),
@@ -82,13 +82,13 @@ module.exports = async $ => {
       console.log(12345);
     }
 
-    // // 코멘트 데이터 데이터베이스 저장
-    // comments.forEach(el => {
-    //   const commentDoc = new Comment(el);
-    //   commentDoc.save(err => err ? console.error(err.message) : console.log(`Comment's info saved in DB.`));
-    // })
+    // 코멘트 데이터 데이터베이스 저장
+    commentObjs.forEach(el => {
+      const commentDoc = new Comment(el);
+      commentDoc.save(err => err ? console.error(err.message) : console.log(`Comment's info saved in DB.`));
+    })
 
-    // // 작품 데이터 데이터베이스 저장
+    // 작품 데이터 데이터베이스 저장
     // products.forEach(el => {
     //   const productDoc = new Product(el);
     //   productDoc.save(err => err ? console.error(err.message) : console.log(`Product's info saved in DB.`));
@@ -98,7 +98,7 @@ module.exports = async $ => {
 
     console.log(123456);
 
-    const objs = products.map(el => {
+    const objs = productObjs.map(el => {
       return {
         productId: el.productId,
         url: el.url,
@@ -107,7 +107,7 @@ module.exports = async $ => {
 
     console.log(1234567);
 
-    return objs;
+    return productObjs;
   } catch (err) {
     console.error('Error in commentsPage:\n' + err)
   }
