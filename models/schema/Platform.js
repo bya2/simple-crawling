@@ -15,7 +15,10 @@ const platformSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  info: [kakaoPageSchema, munpiaSchema, naverSeriesSchema, ridibooksSchema],
+  kakaoPage: kakaoPageSchema, 
+  munpia: munpiaSchema,
+  naverSeriesnaverSeriesSchema,
+  ridibooks: ridibooksSchema
 });
 
 module.exports = platformSchema;
