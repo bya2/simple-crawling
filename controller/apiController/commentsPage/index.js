@@ -1,11 +1,12 @@
 const { commentsPage } = require('../selectors');
+const { Comment, Product } = require('../../../models')
 
 // **Puppeteer에 Cheerio를 적용하여 HTML을 가져온 이유**
 // 셀렉터를 통해 태그 목록에 접근한 후, 반복문을 통해 해당 태그마다 셀렉터를 통해 HTML을 추출하기에 Cheerio가 더 적합하기 때문
 
 // **코멘트 정보와 작품 정보를 하나의 함수에서 추출하는 이유**
 // 스크랩하는 사이트의 서버 환경이 원할하지 않아 최소한의 HTML을 추출해야하기 때문
-module.exports = $ => {
+module.exports = async $ => {
   const { gridLayout, comment, product } = commentsPage;
 
   // Selector에 해당하는 태그 목록
@@ -18,7 +19,8 @@ module.exports = $ => {
     // **코멘트 정보**
     // 중복 방지
     const commentId = el.find(comment.commentId).attr('id');
-    if (commentId === 0) break;
+    const isComment = await Comment.findOne({ commentId: commentId }) ? true : false;
+    if (isComment) break;
 
     // 흐림 제거
     const content = el.find(comment.content) || el.find(comment.blurEffect);
@@ -39,7 +41,8 @@ module.exports = $ => {
 
     // **작품 정보**
     // 중복 방지
-    if (productId === 0) continue;
+    const isProduct = await Product.findOne({ productId: productId }) ? true : false;
+    if (isProduct) continue;
     
     // 점수 / 인원
     const [rate, count] = el.find(product.rate).text().split(' ');
@@ -49,10 +52,10 @@ module.exports = $ => {
       author: el.find(commentsPage.product.author).text(),
       categories: el.find(commentsPage.product.categories).text().split(', '),
       count: parseInt(count.replace(/^\(|\)$/g, '')),
-      href: encodeURI(`${process.env.HOST || 'https://sosul.network'}${productId}`),
+      url: encodeURI(`${process.env.HOST || 'https://sosul.network'}${productId}`),
       image: encodeURI(el.find(commentsPage.product.image).attr('data-src')),
       introduction: el.find(commentsPage.product.introduction).text(),
-      productNo: productId,
+      productId: productId,
       rate: parseFloat(rate),
       title: el.find(commentsPage.product.title).text(),
     });
