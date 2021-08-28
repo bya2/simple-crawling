@@ -35,7 +35,7 @@ module.exports = {
         return page.$eval(el, e => e.innerHTML);
       }))
 
-      const obj = Object.keys(kakaoPage).reduce((obj, t, i) => (obj[t] = promises[i], obj), {});
+      const obj = Object.keys(munpia).reduce((obj, t, i) => (obj[t] = promises[i], obj), {});
       return obj;
     } catch (err) {
       console.error(`Error in munpia:\n${err.message}`);
