@@ -2,12 +2,12 @@ const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
 const fs = require('fs');
 
-const db = require('../db');
+// const db = require('../db');
 
 const selectors = require('./apiController/selectors');
-const { commentsPage, productPage, platformPage } = require('./api');
+const { commentsPage, productPage, platformPage } = require('./apiController');
 const { getPlatforms, getBestComment } = productPage;
-const { getKakaoPage, getMunpia, getNaverSeries, getRidibooks } = platformsPage;
+const { getKakaoPage, getMunpia, getNaverSeries, getRidibooks } = platformPage;
 
 (async () => {
   const url = process.env.TARGET || 'https://sosul.network/series/comments/';
@@ -31,82 +31,82 @@ const { getKakaoPage, getMunpia, getNaverSeries, getRidibooks } = platformsPage;
     await page.setUserAgent(userAgent);
     await page.goto(url);
     console.log(await page.evaluate('navigator.userAgent'));
-    await page.waitForSelector(selectors.commentsPage.gridLayout.items, { timeout: 1000 });
+    await page.waitForSelector(selectors.commentsPage.gridLayout.items, { timeout: 10000 });
 
     // 페이지에서 Content를 변수에 저장
     // Cheerio 객체를 생성
     // 최신 리뷰와 해당 작품에 대한 정보 스크랩
     const content = await page.content();
     const $ = cheerio.load(content);
-    const { comments, products, commentUp, productUp } = await commentsPage($);
+    const productObjs = await commentsPage($);
 
     // 페이지 닫기
     await page.close();
 
+    console.log(productObjs);
+
   
-    // // // PRODUCT PAGE // // //
-    // 해당 작품의 플랫폼 정보와 베스트 리뷰에 대한 정보 스크랩
-    const objList = await Promise.all(products.map(async (product, i) => {
-      // 각 작품마다 페이지 작업
-      const page = await browser.newPage();
-      await page.setUserAgent(userAgent);
-      await page.goto(product.url);
-      console.log(await page.evaluate('navigator.userAgent'));
-      await page.waitForSelector(selectors.productPage.product.platforms, { timeout: 1000 });
+    // // // // PRODUCT PAGE // // //
+    // // 해당 작품의 플랫폼 정보와 베스트 리뷰에 대한 정보 스크랩
+    // const objList = await Promise.all(products.map(async (product, i) => {
+    //   // 각 작품마다 페이지 작업
+    //   const page = await browser.newPage();
+    //   await page.setUserAgent(userAgent);
+    //   await page.goto(product.url);
+    //   console.log(await page.evaluate('navigator.userAgent'));
+    //   await page.waitForSelector(selectors.productPage.product.platforms, { timeout: 1000 });
       
-      // 플랫폼 정보와 베스트 리뷰 정보를 객체에 저장
-      const obj = {
-        platforms: await getPlatforms(page),
-        bestComment: await getBestComment(page),
-      }
+    //   // 플랫폼 정보와 베스트 리뷰 정보를 객체에 저장
+    //   const obj = {
+    //     platforms: await getPlatforms(page),
+    //     bestComment: await getBestComment(page),
+    //   }
 
-      await page.close();
+    //   await page.close();
 
-      return obj;
-    }));
+    //   return obj;
+    // }));
 
-    // PRODUCT 객체에 해당 프로퍼티들을 할당
-    objList.forEach((el, i) => {
-      product[i].assign(el.platforms);
-      product[i].assign(el.bestComment);
-    })
+    // objList.forEach((el, i) => product[i].platforms = el);
 
     // // // PLATFORM PAGE // // //
     // 각 플랫폼에서 핵심 정보를 스크랩
-    await Promise.all(_products.platforms.map(async (el, i) => {
-      try {
-        const page = await browser.newPage();
-        await page.setUserAgent(userAgent);
-        await page.goto(el.href);
-        console.log(await page.evaluate('navigator.userAgent'));
+    // const platforms = products.platforms;
 
-        switch (el.name) {
-          case '카카오페이지':
-            el.assign(await platformPage.kakaoPage(page));
-            break;
-          case '문피아':
-            el.assign(await platformPage.munpia(page));
-            break;
-          case '네이버시리즈':
-            el.assign(await platformPage.naverSeries(page));
-            break;
-          case '리디북스':
-            el.assign(await platformPage.ridibooks(page));
-            break;
-          default: break;
-        }
+    // await Promise.all(products.platforms.map(async (el, i) => {
+    //   try {
+    //     const page = await browser.newPage();
+    //     await page.setUserAgent(userAgent);
+    //     await page.goto(el.href);
+    //     console.log(await page.evaluate('navigator.userAgent'));
 
-        await page.close();
-      } catch (err) {
-        console.error(err);
-      }
-    }))
+    //     switch (el.name) {
+    //       case '카카오페이지':
+    //         el.assign(await platformPage.kakaoPage(page));
+    //         break;
+    //       case '문피아':
+    //         el.assign(await platformPage.munpia(page));
+    //         break;
+    //       case '네이버시리즈':
+    //         el.assign(await platformPage.naverSeries(page));
+    //         break;
+    //       case '리디북스':
+    //         el.assign(await platformPage.ridibooks(page));
+    //         break;
+    //       default: break;
+    //     }
+
+    //     await page.close();
+    //   } catch (err) {
+    //     console.error(err);
+    //   }
+    // }))
 
 
-    fs.writeFileSync('productPages.json', JSON.stringify(_products));
+    // fs.writeFileSync('productObjs.json', JSON.stringify(productObjs));
 
   } catch (err) {
-    console.error(`Error in puppeteer processing:\n${err}`);
+    console.error(`Error in puppeteer processing:\n` + err);
   } finally {
     // 브라우저 종료
     await browser.close();

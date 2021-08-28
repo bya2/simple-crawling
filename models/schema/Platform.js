@@ -17,7 +17,7 @@ const platformSchema = mongoose.Schema({
   },
   kakaoPage: kakaoPageSchema, 
   munpia: munpiaSchema,
-  naverSeriesnaverSeriesSchema,
+  naverSeries: naverSeriesSchema,
   ridibooks: ridibooksSchema
 });
 
