@@ -1,6 +1,100 @@
-# **크롤링**
+# **소설 리뷰 & 플랫폼 정보 스크랩퍼**
 
-**Commit 취소**
+## Progress
+최신 리뷰 페이지
+```
+./controller/apiController/commentsPage/index.js
+./controller/index.js (실행)
+```
+```js
+// 결과
+./TEST/temp/commentsPageObjs.json // 요소가 너무 많아 파일로 작성
+```
+
+해당 작품 페이지
+```
+./controller/apiController/productPage/index.js
+./controller/index.js (실행)
+```
+```js
+// 결과
+./TEST/temp/productPageObjs.json // 요소가 너무 많아 파일로 작성
+```
+
+각 플랫폼 페이지
+```
+./controller/apiController/platformPage/index.js
+./controller/index.js (실행)
+```
+```js
+// 결과
+./TEST/temp/platformsPageObjs.json // 요소가 너무 많아 파일로 작성
+```
+
+## Test
+
+페이지 다른 함수에서 생성
+```
+./TEST/singlePage/bestComment.js (코드 복사)
+./TEST/singlePage/newPage.js
+./TEST/index.js (실행)
+```
+```js
+// 결과
+// 정상적으로 실행, 종료
+{
+  commentId: 'comment-26232',
+  nickname: 'hanaaa',
+  content: '난 너무 재밌게 봤음<br>이거 보고 KEN작가님꺼 좋아 ...',
+  rate: '5.0',
+  updated: '2020년 7월 31일 02:29',
+  good: '1',
+  bad: '0'
+}
+```
+
+productPage: 플랫폼
+```
+./controller/apiController/productPage/index.js
+./TEST/singlePage/getPlatforms.js
+./TEST/index.js (실행)
+```
+```js
+[
+  {
+    name: '카카오페이지',
+    url: 'https://page.kakao.com/home?seriesId=52329538'
+  },
+  {
+    name: '네이버시리즈',
+    url: 'https://series.naver.com/novel/detail.nhn?productNo=3947957'
+  }
+]
+```
+
+
+productPage: 베스트 코멘트
+```
+./TEST/singlePage/bestComment.js
+./TEST/index.js (실행)
+```
+```js
+{
+  commentId: 'comment-26232',
+  nickname: 'hanaaa',
+  content: '난 너무 재밌게 봤음<br>이거 보고 KEN작가님꺼 좋아 ...',
+  rate: '5.0',
+  updated: '2020년 7월 31일 02:29',
+  good: '1',
+  bad: '0'
+}
+```
+
+
+
+## 0828
+
+**Commit 취소**  
 이전에 커밋하지 않았던 모든 파일이 날아가므로 주의 할 것
 ```sh
 git reset --hard HEAD^
