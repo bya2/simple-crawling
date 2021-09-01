@@ -1,5 +1,13 @@
 # **소설 리뷰 & 플랫폼 정보 스크랩퍼**
 
+## Plan
+```
+> 일정 시간마다 업데이트된 최신 리뷰 스크랩 (setInterval or new Date)
+> MongoDB 중첩된 객체 스키마 사용 여부 결정
+> Express 라우트 (최신 리뷰, 아이디 별 작품, 그에 대한 플랫폼 정보)
+> Handlebars (index.hbs, product.hbs, platforms.hbs) 작성 및 수정
+```
+
 ## Progress
 최신 리뷰 페이지
 ```
