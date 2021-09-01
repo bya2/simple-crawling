@@ -14,6 +14,7 @@
 ./controller/apiController/commentsPage/index.js
 ./controller/index.js (실행)
 ```
+- [**링크 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/commentsPageObjs.json)
 ```js
 // 결과
 ./TEST/temp/commentsPageObjs.json // 요소가 너무 많아 파일로 작성
@@ -24,9 +25,11 @@
 ./controller/apiController/productPage/index.js
 ./controller/index.js (실행)
 ```
+- [**링크 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/productPageObjs.json)
 ```js
 // 결과
 ./TEST/temp/productPageObjs.json // 요소가 너무 많아 파일로 작성
+
 ```
 
 각 플랫폼 페이지
@@ -34,6 +37,7 @@
 ./controller/apiController/platformPage/index.js
 ./controller/index.js (실행)
 ```
+- [**링크 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/platformsPageObjs.json)
 ```js
 // 결과
 ./TEST/temp/platformsPageObjs.json // 요소가 너무 많아 파일로 작성
