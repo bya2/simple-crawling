@@ -4,6 +4,11 @@ const platformSchema = require('./schema/Platform');
 const bestCommentSchema = require('./schema/BestComment');
 
 const productSchema = new mongoose.Schema({
+  productId: {
+    type: String,
+    require: true,
+    unique: true,
+  },
   url: {
     type: String,
     required: true,
