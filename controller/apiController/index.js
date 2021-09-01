@@ -1,5 +1,3 @@
-const { commentsPage, productPage, platformPage } = require('./selectors');
-
 module.exports = {
   // 코멘트(리뷰) 페이지에서 정보 추출
   // Puppeteer에 Cheerio 적용

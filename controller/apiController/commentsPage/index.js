@@ -1,5 +1,5 @@
 const { commentsPage } = require('../selectors');
-const { Comment, Product } = require('../../../models')
+const models = require('../../../models')
 
 // **Puppeteer에 Cheerio를 적용하여 HTML을 가져온 이유**
 // 셀렉터를 통해 태그 목록에 접근한 후, 반복문을 통해 해당 태그마다 셀렉터를 통해 HTML을 추출하기에 Cheerio가 더 적합하기 때문
@@ -27,12 +27,12 @@ module.exports = async $ => {
       // // // 코멘트 정보 // // //
       // 중복 방지
       const commentId = el.find(commentsPage.comment.commentId).attr('id');
-      const isComment = await Comment.findOne({ commentId: commentId }) ? true : false;
+      const isComment = await models.Comment.findOne({ commentId: commentId }) ? true : false;
       if (isComment) break;
 
       // 흐림 제거
       const content = el.find(commentsPage.comment.content) || el.find(commentsPage.comment.blurEffect);
-      const productId = el.find(commentsPage.product.href).attr('href');
+      const productId = el.find(commentsPage.product.href).attr('href').split('/')[2];
 
       console.log(123);
 
@@ -43,7 +43,7 @@ module.exports = async $ => {
         nickname: el.find(commentsPage.comment.nickname).text(),
         rate: parseFloat(el.find(commentsPage.comment.rate).attr('data-rateit-value')),
         updated: el.find(commentsPage.comment.updated).text(),
-        productId: productId,
+        productURL: encodeURI(`${process.env.HOST || 'https://sosul.network'}${productId}`),
       })
 
       console.log(1234);
@@ -53,7 +53,7 @@ module.exports = async $ => {
 
       // // // 작품 정보 // // //
       // 중복 방지
-      const isProduct = await Product.findOne({ productId: productId }) ? true : false;
+      const isProduct = await models.Product.findOne({ productId: productId }) ? true : false;
       if (isProduct) continue;
 
       console.log(1234111111);
@@ -84,7 +84,7 @@ module.exports = async $ => {
 
     // 코멘트 데이터 데이터베이스 저장
     commentObjs.forEach(el => {
-      const commentDoc = new Comment(el);
+      const commentDoc = new models.Comment(el);
       commentDoc.save(err => err ? console.error(err.message) : console.log(`Comment's info saved in DB.`));
     })
 
@@ -98,16 +98,12 @@ module.exports = async $ => {
 
     console.log(123456);
 
-    const objs = productObjs.map(el => {
-      return {
-        productId: el.productId,
-        url: el.url,
-      }
-    })
-
-    console.log(1234567);
-
-    return productObjs;
+    return {
+      commentObjs,
+      productObjs,
+      commentUp,
+      productUp,
+    };
   } catch (err) {
     console.error('Error in commentsPage:\n' + err)
   }
