@@ -9,7 +9,8 @@
 ```
 
 ## Progress
-최신 리뷰 페이지
+
+### 최신 리뷰 페이지
 ```
 ./controller/apiController/commentsPage/index.js
 ./controller/index.js (실행)
@@ -20,7 +21,7 @@
 ./TEST/temp/commentsPageObjs.json // 요소가 너무 많아 파일로 작성
 ```
 
-해당 작품 페이지
+### 해당 작품 페이지
 ```
 ./controller/apiController/productPage/index.js
 ./controller/index.js (실행)
@@ -32,7 +33,7 @@
 
 ```
 
-각 플랫폼 페이지
+### 각 플랫폼 페이지
 ```
 ./controller/apiController/platformPage/index.js
 ./controller/index.js (실행)
@@ -45,7 +46,7 @@
 
 ## Test
 
-페이지 다른 함수에서 생성
+### 페이지 다른 함수에서 생성
 ```
 ./TEST/singlePage/bestComment.js (코드 복사)
 ./TEST/singlePage/newPage.js
@@ -65,7 +66,7 @@
 }
 ```
 
-productPage: 플랫폼
+### productPage: 플랫폼
 ```
 ./controller/apiController/productPage/index.js
 ./TEST/singlePage/getPlatforms.js
@@ -85,7 +86,7 @@ productPage: 플랫폼
 ```
 
 
-productPage: 베스트 코멘트
+### productPage: 베스트 코멘트
 ```
 ./TEST/singlePage/bestComment.js
 ./TEST/index.js (실행)
