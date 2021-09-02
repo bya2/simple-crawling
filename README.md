@@ -18,7 +18,7 @@
 - [**링크 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/commentsPageObjs.json)
 ```js
 // 결과
-./TEST/temp/commentsPageObjs.json // 요소가 너무 많아 파일로 작성
+./TEST/temp/commentsPageObjs.json
 ```
 
 ### 해당 작품 페이지
@@ -29,7 +29,7 @@
 - [**링크 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/productPageObjs.json)
 ```js
 // 결과
-./TEST/temp/productPageObjs.json // 요소가 너무 많아 파일로 작성
+./TEST/temp/productPageObjs.json
 
 ```
 
@@ -41,7 +41,7 @@
 - [**링크 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/platformsPageObjs.json)
 ```js
 // 결과
-./TEST/temp/platformsPageObjs.json // 요소가 너무 많아 파일로 작성
+./TEST/temp/platformsPageObjs.json
 ```
 
 ## Test
@@ -103,6 +103,35 @@
 }
 ```
 
+## 0901
+**암시적 바인딩**  
+모듈을 객체 안에 저장하고, 그 안에서 this를 통해서 활성화 객체 안에서 사용
+```js
+const module = require('module')
+const obj = {
+  module: module;
+  func: function () {
+    this.module.Method();
+  }
+}
+```
+
+**switch 문 대체**  
+조건에 맞는 배열의 인덱스를 찾고, 인덱스에 해당하는 함수 호출
+```js
+const arr1 = ['a', 'b', 'c'];
+const arr2 = [fn1, fn2, fn3];
+
+... map(obj => {
+  const idx = arr1.findIndex(el => el === obj.property);
+  arr2[idx]();
+})
+```
+
+
+
+
+```
 
 
 ## 0828
