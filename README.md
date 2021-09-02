@@ -12,36 +12,40 @@
 
 ### 최신 리뷰 페이지
 ```
-./controller/apiController/commentsPage/index.js
-./controller/index.js (실행)
+./controller/apiController.funcCommentsPage
+./scrap/index.js (실행)
 ```
-- [**링크 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/commentsPageObjs.json)
+- [**링크1 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/commentObjs.json)
+- [**링크2 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/productObjs.json)
 ```js
 // 결과
-./TEST/temp/commentsPageObjs.json
+./TEST/temp/commentObjs.json
+./TEST/temp/productObjs.json
 ```
 
 ### 해당 작품 페이지
 ```
-./controller/apiController/productPage/index.js
-./controller/index.js (실행)
+./controller/apiController.funcProductPage
+./scrap/index.js (실행)
 ```
-- [**링크 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/productPageObjs.json)
+- [**링크1 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/bestComments.json)
+- [**링크2 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/platformsArr.json) (아직 구현 안된 링크)
 ```js
 // 결과
-./TEST/temp/productPageObjs.json
+./TEST/temp/bestComments.json
+./TEST/temp/platformsArr.json (아래 이 정보와 플랫폼 내 정보가 통합된 정보가 있으므로 조금 나중에 만들 예정)
 
 ```
 
 ### 각 플랫폼 페이지
 ```
-./controller/apiController/platformPage/index.js
-./controller/index.js (실행)
+./controller/apiController.funcPlatformPage
+./scrap/index.js (실행)
 ```
-- [**링크 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/platformsPageObjs.json)
+- [**링크 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/platformInfos.json)
 ```js
 // 결과
-./TEST/temp/platformsPageObjs.json
+./TEST/temp/platformInfos.json
 ```
 
 ## Test
