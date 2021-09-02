@@ -3,37 +3,46 @@ const cheerio = require('cheerio');
 const fs = require('fs');
 
 const apiController = require('../controller/apiController');
-
 const db = require('../db');
 
-const scrap = {
+const scrapContextObj = {
+  // 모듈
   puppeteer: puppeteer,
+  cheerio: cheerio,
+  fs: fs,
+
+  // 모듈 외 필요 파일
   apiController: apiController,
-  url = process.env.TARGET || 'https://sosul.network/series/comments/',
 
-  fnLaunchBrowser: async function () {
-    const browser = await this.puppeteer.launch();
-    const page = await this.apiController.fnGetNewPage(browser, this.url);
+  funcLaunchBrowser: async function () {
+    console.log(0);
+    const url = process.env.TARGET || 'https://sosul.network/series/comments/';
 
-    const content = await page.content();
-    const $ = cheerio.load(content);
-    const commentsPageObjs = await commentsPage($);
+    let browser;
 
-    const [commentup, productUp] = await this.apiController.fnCommentsPage($);
-    await this.apiContorller.fnProductPage(browser);
-    await this.apiContorller.fnPlatformPage(browser);
-
-    return browser;
-  },
-}
+    try {
+      browser = await this.puppeteer.launch();
+      console.log(1);
+      // 리뷰 페이지
+      const page = await this.apiController.funcGetNewPage(browser, url);
+      const content = await page.content();
+      const $ = cheerio.load(content);
+      await this.apiController.funcCommentsPage($);
+      console.log(2);
+      // 작품 페이지
+      await this.apiController.funcProductPage(browser);
+      console.log(3);
+      // 서비스 플랫폼 페이지
+      await this.apiController.funcPlatformPage(browser);
+      console.log(4);
+    } catch (err) {
+      console.error(`Error in funcLaunchBrowser:\n${err}`);
+    } finally {
+      await browser.close();
+    }
+  }
+};
 
 (async function () {
-  await fnLaunchBrowser()
-        .catch(err => {
-          if (err) return console.error(`Error in fnLaunchBrowser:\n${err}`);
-          return console.log('Launch browser.');
-        })
-        .then(browser => {
-          await browser.close();
-        })
+  await scrapContextObj.funcLaunchBrowser();
 })();

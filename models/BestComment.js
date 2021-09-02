@@ -25,7 +25,7 @@ const bestCommentSchema = new mongoose.Schema({
   }
 });
 
-module.exports = bestCommentSchema;
+module.exports = mongoose.model('BestComment', bestCommentSchema);
 
 
 

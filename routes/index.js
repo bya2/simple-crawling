@@ -11,7 +11,7 @@ router.get('/', async (req, res, next) => {
     res.status(200).render('index', {
       title: 'Novel Review & Product Information Scraper',
       subtitle: 'COMMENTS',
-      metaData: ['COMMENTSID', 'NICKNAME', 'CONTENT', 'RATE', 'UPDATED', 'PRODUCT'], // 6
+      metaData: ['COMMENTSID', 'NICKNAME', 'CONTENT', 'RATE', 'UPDATED', 'PRODUCTURL'], // 6
       docs: comments,
     });
 
@@ -34,7 +34,5 @@ router.get('/:id', async (req, res, next) => {
     console.error()
   }
 })
-
-router.get()
 
 module.exports = router;
