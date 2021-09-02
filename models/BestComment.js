@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const bestCommentSchema = new mongoose.Schema({
+  productId: {
+    type: String,
+    require: true,
+  },
   commentId: {
     type: String,
     required: String,

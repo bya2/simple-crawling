@@ -10,6 +10,10 @@
 
 ## Progress
 
+### 화면
+( 닉네임이 모두 같은 것은 정말로 모두 같은 작성자가 작성했기 때문)
+![Screenshot (1)](https://user-images.githubusercontent.com/61080445/131825028-21081fc4-dbe7-4fb8-89a4-2330367a932b.png)
+
 ### 최신 리뷰 페이지
 ```
 ./controller/apiController.funcCommentsPage

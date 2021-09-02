@@ -1,11 +1,15 @@
 const mongoose = require('mongoose');
 
-const kakaoPageSchema = require('./KakaoPage');
-const munpiaSchema = require('./Munpia');
-const naverSeriesSchema = require('./NaverSeries');
-const ridibooksSchema = require('./Ridibooks');
+const kakaoPageSchema = require('./schema/KakaoPage');
+const munpiaSchema = require('./schema/Munpia');
+const naverSeriesSchema = require('./schema/NaverSeries');
+const ridibooksSchema = require('./schema/Ridibooks');
 
 const platformSchema = mongoose.Schema({
+  productId: {
+    type: String,
+    required: true,
+  },
   url: {
     type: String,
     required: true,

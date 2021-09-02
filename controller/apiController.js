@@ -117,8 +117,8 @@ const apiController = {
 
     // 작품 정보 데이터베이스 저장
     this.productObjs.forEach(el => {
-      const commentDoc = new this.models.Comment(el);
-      commentDoc.save(err => err ? console.error(err.message) : console.log(`Comment's info saved in DB.`));
+      const productDoc = new this.models.Product(el);
+      productDoc.save(err => err ? console.error(err.message) : console.log(`Product's info saved in DB.`));
     });
     console.log('2-4');
 
@@ -126,16 +126,16 @@ const apiController = {
   },
 
   // 작품 페이지에서 플랫폼들의 정보 가져오기
-  funcGetPlatforms: async function (page) {
+  funcGetPlatforms: async function (page, productId) {
     console.log('3-0-1-0');
     const els = await page.$$(this.selectors.productPage.product.platforms);
     console.log('3-0-1-1');
-    const arr = await Promise.all(els.map(el => page.evaluate(e => ({ name: e.innerHTML, url: e.href }), el)));
+    const arr = await Promise.all(els.map(el => page.evaluate(e => ({ productId: productId, name: e.innerHTML, url: e.href }), el)));
     return arr
   },
 
   // 작품 페이지에서 베스트 코멘트의 정보 가져오기
-  funcGetBestComment: async function (page) {
+  funcGetBestComment: async function (page, productId) {
     console.log('3-0-2-0');
     const comment = this.selectors.productPage.comment;
 
@@ -148,6 +148,7 @@ const apiController = {
 
     const obj = Object.keys(comment).reduce((obj, t, i) => (obj[t] = promises[i], obj), {});
     obj.rate = parseFloat(obj.rate);
+    obj.productId = productId;
 
     return obj;
   },
@@ -164,9 +165,9 @@ const apiController = {
       console.log('3-0-0');
       const page = await this.funcGetNewPage(browser, obj.url);
       console.log('3-0-1');
-      platformInfos[i] = await this.funcGetPlatforms(page);
+      platformInfos[i] = await this.funcGetPlatforms(page, obj.productId);
       console.log('3-0-2');
-      bestComments[i] = await this.funcGetBestComment(page);
+      bestComments[i] = await this.funcGetBestComment(page, obj.productId);
       console.log('3-0-3');
       await page.close();
     })).catch(err => err ? console.error(`Error in fnProductPage:\n${err}`) : console.log('fnProductPage OK.'));
