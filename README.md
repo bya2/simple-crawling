@@ -7,15 +7,18 @@
 ## 0. Consider
 
 ### Crawling API
+```
 1. Scope
 2. DB 동작 최소화
-{: .notice}
+```
 
 ## 1. Plan
-> 일정 시간마다 업데이트된 최신 리뷰 스크랩  
-  MongoDB 중첩된 객체 스키마 사용 여부 결정  
-  Express 라우트 (최신 리뷰, 아이디 별 작품, 그에 대한 플랫폼 정보)  
-  Handlebars (index.hbs, product.hbs, platforms.hbs) 작성 및 수정
+```
+1. 일정 시간마다 업데이트된 최신 리뷰 스크랩  
+2. MongoDB 중첩된 객체 스키마 사용 여부 결정  
+3. Express 라우트 (최신 리뷰, 아이디 별 작품, 그에 대한 플랫폼정보)  
+4. Handlebars (index.hbs, product.hbs, platforms.hbs) 작성및 수정
+```
 
 ## 2. Progress
 
@@ -44,6 +47,8 @@ $ npm run scrap
 ./scrap/index.js (main)
 ```
 - Results
+  - [**링크1 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/tmpCobjs.json)
+  - [**링크2 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/tmpPObjs.json)
 ```
 ./TEST/temp/tmpCObjs.json 
 ./TEST/temp/tmpPObjs.json
@@ -57,7 +62,7 @@ $ npm run scrap
 ```
 - [**링크1 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/cObjs.json)
 - [**링크2 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/pObjs.json)
-```js
+```
 1. ./TEST/temp/each/cObjs.json
 2. ./TEST/temp/each/pObjs.json
 ```
@@ -69,7 +74,7 @@ $ npm run scrap
 ```
 - [**링크1 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/bcObjs.json)
 - [**링크2 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/pfArrs.json)
-```js
+```
 1. ./TEST/temp/each/bcObjs.json
 2. ./TEST/temp/each/pfArrs.json
 
@@ -81,6 +86,6 @@ $ npm run scrap
 ./scrap/index.js (실행)
 ```
 - [**링크 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/pfArrs1.json)
-```js
+```
 ./TEST/temp/each/pfArrs1.json
 ```
