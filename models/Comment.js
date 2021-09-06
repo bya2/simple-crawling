@@ -18,6 +18,10 @@ module.exports = mongoose.model('Comment', new mongoose.Schema({
   updated: {
     type: String
   },
+  productId: {
+    type: String,
+    required: true
+  }
 }))
 
 
