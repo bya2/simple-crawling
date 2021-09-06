@@ -31,11 +31,11 @@
 
 ### 화면
 
-- **`Browser`**
+**`Browser`**
 
 ![Screenshot (1)](https://user-images.githubusercontent.com/61080445/131825028-21081fc4-dbe7-4fb8-89a4-2330367a932b.png)
 
-- **`MongoDB Compass`**
+**`MongoDB Compass`**
 
 ![image](https://user-images.githubusercontent.com/61080445/132224595-6ae78bb8-9005-4075-b8d2-63116ea2dc84.png)
 
@@ -45,11 +45,12 @@
 
 ### 실행 
 #### 
-- Command
+`- Command`
 ```sh
 $ npm run scrap
 ```
-- Files
+
+`- Files & Functions`
 ```
 ./db.js
 ./models/
@@ -57,9 +58,9 @@ $ npm run scrap
 ./controller/apiController.js
 ./scrap/index.js (main)
 ```
-- Results  
-[**`Link1↓`**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/tmpCobjs.json)
-[**`Link2↓`**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/tmpPObjs.json)
+
+[`- Result1↓`](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/tmpCobjs.json),
+[`Result2↓`](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/tmpPObjs.json)
 ```
 ./TEST/temp/tmpCObjs.json 
 ./TEST/temp/tmpPObjs.json
@@ -67,40 +68,40 @@ $ npm run scrap
 
 
 #### 최신 리뷰 페이지
-`Files & Function`
+`- Files & Function`
 ```
 ./controller/apiController.funcCommentsPage
 ./scrap/index.js (실행)
 ```
-[**`Link1↓`**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/cObjs.json)
-[**`Link2↓`**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/pObjs.json)
+
+[`- Result1↓`](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/cObjs.json),
+[`Result2↓`](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/pObjs.json)
 ```
 1. ./TEST/temp/each/cObjs.json
 2. ./TEST/temp/each/pObjs.json
 ```
 
 #### 해당 작품 페이지
-`Files & Function`
+`- Files & Function`
 ```
 ./controller/apiController.funcProductPage
 ./scrap/index.js (실행)
 ```
-`Result`:
-[**`Link1↓`**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/bcObjs.json)
-[**`Link2↓`**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/pfArrs.json)
+
+[`- Result1↓`](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/bcObjs.json),
+[`Result2↓`](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/pfArrs.json)
 ```
 1. ./TEST/temp/each/bcObjs.json
 2. ./TEST/temp/each/pfArrs.json
-
 ```
 
 #### 각 플랫폼 페이지
-`Files & Function`
+`- Files & Function`
 ```
 ./controller/apiController.funcPlatformPage
 ./scrap/index.js (실행)
 ```
-[**`Link↓`**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/pfArrs1.json)
+[`- Result↓`](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/pfArrs1.json)
 ```
 ./TEST/temp/each/pfArrs1.json
 ```
