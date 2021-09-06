@@ -15,7 +15,6 @@ const scrapContextObj = {
   apiController: apiController,
 
   funcLaunchBrowser: async function () {
-    console.log(0);
     const url = process.env.TARGET || 'https://sosul.network/series/comments/';
 
     let browser;

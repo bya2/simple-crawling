@@ -34,8 +34,9 @@ const apiController = {
     let cUp = 0;
 
     const cpcS = this.selectors.commentsPage.comment;
+    const href = this.selectors.commentsPage.product.href;
 
-    for (let i=0, tmpObjs=cObjs, tmpS=cpcS; i<elsLen; ++i) {
+    for (let i=0, tmpObjs=cObjs, tmpS=cpcS, tmpHref=href; i<elsLen; ++i) {
       const el = $(els[i]);
 
       const cId = el.find(tmpS.commentId).attr('id');
@@ -48,7 +49,7 @@ const apiController = {
         nickname: el.find(tmpS.nickname).text(),
         rate: parseFloat(el.find(tmpS.rate).attr('data-rateit-value')),
         updated: el.find(tmpS.updated).text(),
-        productId: el.find(this.selectors.commentsPage.product.href).attr('href').split('/')[2]
+        productId: el.find(tmpHref).attr('href').split('/')[2]
       }
 
       ++cUp;
@@ -187,13 +188,11 @@ const apiController = {
 
   // TEST OK
   funcWriteJSON: function (pUp) {
-    console.log('funcWriteJSON 1');
     for (let i=0, pObjs=this.pObjs, bcObjs=this.bcObjs, pfArrs=this.pfArrs; i<pUp; ++i) {
       pObjs[i].bestComment = bcObjs[i];
       pObjs[i].platform = pfArrs[i];
     }
 
-    console.log('funcWriteJSON 2');
     fs.writeFileSync('./TEST/temp/tmpCObjs.json', JSON.stringify(this.cObjs));
     fs.writeFileSync('./TEST/temp/tmpPObjs.json', JSON.stringify(this.pObjs));
   },
