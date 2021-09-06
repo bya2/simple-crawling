@@ -21,7 +21,11 @@ module.exports = mongoose.model('Comment', new mongoose.Schema({
   productId: {
     type: String,
     required: true
-  }
+  },
+  title: {
+    type: String,
+    required: true
+  },
 }))
 
 
