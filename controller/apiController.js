@@ -34,9 +34,9 @@ const apiController = {
     let cUp = 0;
 
     const cpcS = this.selectors.commentsPage.comment;
-    const href = this.selectors.commentsPage.product.href;
+    const cppS = this.selectors.commentsPage.product;
 
-    for (let i=0, tmpObjs=cObjs, tmpS=cpcS, tmpHref=href; i<elsLen; ++i) {
+    for (let i=0, tmpObjs=cObjs, tmpS=cpcS, tmpS2=cppS; i<elsLen; ++i) {
       const el = $(els[i]);
 
       const cId = el.find(tmpS.commentId).attr('id');
@@ -49,7 +49,8 @@ const apiController = {
         nickname: el.find(tmpS.nickname).text(),
         rate: parseFloat(el.find(tmpS.rate).attr('data-rateit-value')),
         updated: el.find(tmpS.updated).text(),
-        productId: el.find(tmpHref).attr('href').split('/')[2]
+        productId: el.find(tmpS2.href).attr('href').split('/')[2],
+        title: el.find(tmpS2.title).text(),
       }
 
       ++cUp;
