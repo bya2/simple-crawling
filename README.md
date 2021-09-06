@@ -1,10 +1,10 @@
 # **소설 리뷰 & 플랫폼 정보 스크랩퍼**
 
-## Description
+## 설명
 [**`Blog`**](https://bya2.github.io)
 
 
-## Consider
+## 고려 사항
 
 ```
 스코프 범위를 고려해서 코드 작성하기,
@@ -16,7 +16,7 @@
 기능 별로 함수로 분리,
 ```
 
-## Plan
+## 개발 계획
 ```
 1. AWS, Docker를 이용해서 크롤링 자동화
 
@@ -27,15 +27,15 @@
 (완료) MongoDB 중첩된 객체 스키마 사용 여부 결정  
 ```
 
-## Progress
+## 진행 상황
 
 ### 화면
 
-- **Browser**
+- **`Browser`**
 
 ![Screenshot (1)](https://user-images.githubusercontent.com/61080445/131825028-21081fc4-dbe7-4fb8-89a4-2330367a932b.png)
 
-- **MongoDB Compass**
+- **`MongoDB Compass`**
 
 ![image](https://user-images.githubusercontent.com/61080445/132224595-6ae78bb8-9005-4075-b8d2-63116ea2dc84.png)
 
@@ -44,6 +44,7 @@
 ![Products](https://user-images.githubusercontent.com/61080445/132225723-05a3a483-43de-4181-943d-59ddcc0cd0bf.png)
 
 ### 실행 
+#### 
 - Command
 ```sh
 $ npm run scrap
@@ -56,9 +57,9 @@ $ npm run scrap
 ./controller/apiController.js
 ./scrap/index.js (main)
 ```
-- Results
-  - [**링크1 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/tmpCobjs.json)
-  - [**링크2 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/tmpPObjs.json)
+- Results  
+[**`Link1↓`**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/tmpCobjs.json)
+[**`Link2↓`**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/tmpPObjs.json)
 ```
 ./TEST/temp/tmpCObjs.json 
 ./TEST/temp/tmpPObjs.json
@@ -66,24 +67,27 @@ $ npm run scrap
 
 
 #### 최신 리뷰 페이지
+`Files & Function`
 ```
 ./controller/apiController.funcCommentsPage
 ./scrap/index.js (실행)
 ```
-- [**링크1 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/cObjs.json)
-- [**링크2 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/pObjs.json)
+[**`Link1↓`**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/cObjs.json)
+[**`Link2↓`**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/pObjs.json)
 ```
 1. ./TEST/temp/each/cObjs.json
 2. ./TEST/temp/each/pObjs.json
 ```
 
 #### 해당 작품 페이지
+`Files & Function`
 ```
 ./controller/apiController.funcProductPage
 ./scrap/index.js (실행)
 ```
-- [**링크1 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/bcObjs.json)
-- [**링크2 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/pfArrs.json)
+`Result`:
+[**`Link1↓`**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/bcObjs.json)
+[**`Link2↓`**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/pfArrs.json)
 ```
 1. ./TEST/temp/each/bcObjs.json
 2. ./TEST/temp/each/pfArrs.json
@@ -91,11 +95,12 @@ $ npm run scrap
 ```
 
 #### 각 플랫폼 페이지
+`Files & Function`
 ```
 ./controller/apiController.funcPlatformPage
 ./scrap/index.js (실행)
 ```
-- [**링크 ↓**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/pfArrs1.json)
+[**`Link↓`**](https://github.com/bya2/simple-crawling/tree/main/TEST/temp/each/pfArrs1.json)
 ```
 ./TEST/temp/each/pfArrs1.json
 ```
