@@ -3,7 +3,7 @@ const fs = require('fs');
 const models = require('../models');
 const selectors = require('./selectors');
 
-const userAgent = process.env.USER_AGENT || 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.0 Safari/537.36';
+const userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.0 Safari/537.36';
 
 const apiController = {
   // 모듈
@@ -14,235 +14,206 @@ const apiController = {
   selectors: selectors,
 
   // 변수
-  userAgent: userAgent,
+  userAgent: process.env.USER_AGENT || userAgent,
 
   // 함수
+  // TEST OK
   funcGetNewPage: async function (browser, url) {
-    console.log('1-0');
-    const page = await browser.newPage();                 // 페이지 생성
-    await page.setUserAgent(this.userAgent);              // 사용자 에이전트 식별
-    await page.goto(url);                                 // 페이지 이동
-    console.log('1-1');
-    const navi = page.evaluate('navigator.userAgent');    // 사용자 에이전트 동작 확인
-    console.log(navi);
-    console.log('1-2');
+    const page = await browser.newPage();                       // 페이지 생성
+    await page.setUserAgent(this.userAgent);                    // 사용자 에이전트 식별
+    await page.goto(url);                                       // 페이지 이동
+    console.log(await page.evaluate('navigator.userAgent'));    // 사용자 에이전트 동작 확인
     return page;
   },
 
-  // 코멘트 정보들 가져오기
-  // 작품 정보 추출을 위해서 코멘트 업데이트된 수 반환
+  // TEST OK
   funcGetComments: async function ($, els) {
     const elsLen = els.length;
 
-    const commentObjs = [];
-    let commentUp = 0;
+    const cObjs = [];
+    let cUp = 0;
 
-    for (let i=0; i<elsLen; i+=1) {
+    const cpcS = this.selectors.commentsPage.comment;
+
+    for (let i=0, tmpObjs=cObjs, tmpS=cpcS; i<elsLen; ++i) {
       const el = $(els[i]);
 
-      const commentId = el.find(this.selectors.commentsPage.comment.commentId).attr('id');
-      const isComment = await this.models.Comment.findOne({ commentId: commentId });
-      if (isComment) break; // 전에 스크랩한 최신 리뷰까지 왔으므로, 스크랩 중지
+      const cId = el.find(tmpS.commentId).attr('id');
+      const isC = await this.models.Comment.findOne({ commentId: cId }) ? true : false;
+      if (isC || i === elsLen) break;
 
-      const content = el.find(this.selectors.commentsPage.comment.content) || el.find(this.selectors.commentsPage.comment.blurEffect);
-      const href = el.find(this.selectors.commentsPage.product.href).attr('href');
-
-      commentObjs[i] = {
-        commentId: commentId,
-        content: content.html(),
-        nickname: el.find(this.selectors.commentsPage.comment.nickname).text(),
-        rate: parseFloat(el.find(this.selectors.commentsPage.comment.rate).attr('data-rateit-value')),
-        updated: el.find(this.selectors.commentsPage.comment.updated).text(),
-        productURL: encodeURI(`${process.env.HOST || 'https://sosul.network'}${href}`),
+      tmpObjs[i] = {
+        commentId: cId,
+        content: (el.find(tmpS.content) || el.find(tmpS.blurEffect)).html(),
+        nickname: el.find(tmpS.nickname).text(),
+        rate: parseFloat(el.find(tmpS.rate).attr('data-rateit-value')),
+        updated: el.find(tmpS.updated).text(),
+        productId: el.find(this.selectors.commentsPage.product.href).attr('href').split('/')[2]
       }
 
-      commentUp += 1;
+      ++cUp;
     }
 
-    this.commentObjs = commentObjs;
-    this.fs.writeFileSync('./TEST/temp/commentObjs.json', JSON.stringify(this.commentObjs));
-    return commentUp;
+    this.cObjs = cObjs;
+    return cUp;
   },
 
-  // 코멘트 정보가 업데이트된 만큼 작품 정보를 가져오기.
-  funcGetProducts: async function ($, els, commentUp) {
-    const productObjs = [];
-    let productUp = 0;
+  // TEST OK
+  funcGetProducts: async function ($, els, cUp) {
+    const pObjs = [];
+    let pUp = 0;
 
-    for (let i=0; i<commentUp; i+=1) {
+    const cppS = this.selectors.commentsPage.product;
+
+    for (let i=0, tmpObjs=pObjs, tmpS=cppS; i<cUp; ++i) {
       const el = $(els[i]);
 
-      const href = el.find(this.selectors.commentsPage.product.href).attr('href')
-      const productId = href.split('/')[2];
-      const isProduct = await this.models.Product.findOne({ productId: productId });
-      if (isProduct) continue;
+      const pHref = el.find(tmpS.href).attr('href');
+      const pId = pHref.split('/')[2];
+      const isP = await this.models.Product.findOne({ productId: pId }) ? true : false;
+      if (isP) continue;
 
-      const [rate, count] = el.find(this.selectors.commentsPage.product.rate).text().split(' ');
+      const [rate, count] = el.find(tmpS.rate).text().split(' ');
 
-      productObjs.push({
-        author: el.find(this.selectors.commentsPage.product.author).text(),
-        categories: el.find(this.selectors.commentsPage.product.categories).text().split(','),
+      tmpObjs.push({
+        author: el.find(tmpS.author).text(),
+        categories: el.find(tmpS.categories).text().split(' '),
         count: parseInt(count.replace(/^\(|\)$/g, '')),
-        url: encodeURI(`${process.env.HOST || 'https://sosul.network'}${href}`),
-        image: encodeURI(el.find(this.selectors.commentsPage.product.image).attr('data-src')),
-        introduction: el.find(this.selectors.commentsPage.product.introduction).text(),
-        productId: productId,
+        url: encodeURI(`${process.env.HOST || 'http://sosul.network'}${pHref}`),
+        image: encodeURI(el.find(tmpS.image).attr('data-src')),
+        introduction: el.find(tmpS.introduction).text(),
+        productId: pId,
         rate: parseFloat(rate),
-        title: el.find(this.selectors.commentsPage.product.title).text(),
+        title: el.find(tmpS.title).text(),
       })
 
-      productUp += 1;
+      ++pUp;
     }
 
-    this.productObjs = productObjs;
-    this.fs.writeFileSync('./TEST/temp/productObjs.json', JSON.stringify(this.productObjs));
-    return productUp;
+    this.pObjs = pObjs;
+    return pUp;
   },
 
-  // COMMENTS 페이지에서 코멘트 정보, 작품 정보들 가져오기
+  // TEST OK
   funcCommentsPage: async function ($) {
-    console.log('2-0');
-    const els = $(this.selectors.commentsPage.gridLayout.items);
-    console.log('2-1');
-    const commentUp = await this.funcGetComments($, els);
-    console.log('2-2');
-    const productUp = await this.funcGetProducts($, els, commentUp);
-
-    console.log('2-3');
-    // 코멘트 정보 데이터베이스 저장
-    this.commentObjs.forEach(el => {
-      const commentDoc = new this.models.Comment(el);
-      commentDoc.save(err => err ? console.error(err.message) : console.log(`Comment's info saved in DB.`));
-    });
-
-    // 작품 정보 데이터베이스 저장
-    this.productObjs.forEach(el => {
-      const productDoc = new this.models.Product(el);
-      productDoc.save(err => err ? console.error(err.message) : console.log(`Product's info saved in DB.`));
-    });
-    console.log('2-4');
-
-    return [commentUp, productUp];
+    const cpgliS = this.selectors.commentsPage.gridLayout.items;
+    const els = $(cpgliS);
+    const cUp = await this.funcGetComments($, els);
+    const pUp = await this.funcGetProducts($, els, cUp);
+    return [cUp, pUp];
   },
 
-  // 작품 페이지에서 플랫폼들의 정보 가져오기
-  funcGetPlatforms: async function (page, productId) {
-    console.log('3-0-1-0');
-    const els = await page.$$(this.selectors.productPage.product.platforms);
-    console.log('3-0-1-1');
-    const arr = await Promise.all(els.map(el => page.evaluate(e => ({ productId: productId, name: e.innerHTML, url: e.href }), el)));
+  // TEST OK
+  funcGetPlatforms: async function (page) {
+    const ppppS = this.selectors.productPage.product.platforms;
+    const els = await page.$$(ppppS);
+    const arr = await Promise.all(els.map(el => page.evaluate(e => ({ name: e.innerHTML, url: e.href }), el)));
     return arr
   },
 
-  // 작품 페이지에서 베스트 코멘트의 정보 가져오기
-  funcGetBestComment: async function (page, productId) {
-    console.log('3-0-2-0');
-    const comment = this.selectors.productPage.comment;
+   // TEST OK
+  funcGetBestComment: async function (page) {
+    const ppcS = this.selectors.productPage.comment;
 
-    const promises = await Promise.all(Object.values(comment).map(el => {
-      if (el === comment.commentId) return page.$eval(el, e => e.id);
-      if (el === comment.rate) return page.$eval(el, e => e.getAttribute('data-rateit-value'));
+    const promises = await Promise.all(Object.values(ppcS).map(el => {
+      if (el === ppcS.commentId) return page.$eval(el, e => e.id);
+      if (el === ppcS.rate) return page.$eval(el, e => e.getAttribute('data-rateit-value'));
       return page.$eval(el, e => e.innerHTML);
     }));
-    console.log('3-0-2-1');
 
-    const obj = Object.keys(comment).reduce((obj, t, i) => (obj[t] = promises[i], obj), {});
+    const obj = Object.keys(ppcS).reduce((obj, t, i) => (obj[t] = promises[i], obj), {});
     obj.rate = parseFloat(obj.rate);
-    obj.productId = productId;
 
     return obj;
   },
 
+  // TEST OK
   funcProductPage: async function (browser) {
-    console.log('3-0');
-    const objs = this.productObjs;
+    const pObjs = this.pObjs;
+    const pfArrs = [], bcObjs = [];
 
-    const platformInfos = [], bestComments = [];
-
-    console.log(this.productObjs);
-
-    await Promise.all(objs.map(async (obj, i) => {
-      console.log('3-0-0');
+    await Promise.all(pObjs.map(async (obj, i) => {
       const page = await this.funcGetNewPage(browser, obj.url);
-      console.log('3-0-1');
-      platformInfos[i] = await this.funcGetPlatforms(page, obj.productId);
-      console.log('3-0-2');
-      bestComments[i] = await this.funcGetBestComment(page, obj.productId);
-      console.log('3-0-3');
+      pfArrs[i] = await this.funcGetPlatforms(page);
+      bcObjs[i] = await this.funcGetBestComment(page);
       await page.close();
-    })).catch(err => err ? console.error(`Error in fnProductPage:\n${err}`) : console.log('fnProductPage OK.'));
-    console.log('3-1');
+    }))
+    .catch(err => {
+      if (err) {
+        return console.error(`Error in funcProductPage:\n${err}`);
+      }
+      console.log('No error in funcProductPage');
+    });
 
-    this.platformInfos = platformInfos;
-    this.bestComments = bestComments;
-    this.fs.writeFileSync('./TEST/temp/platformInfos.json', JSON.stringify(this.platformInfos));
-    this.fs.writeFileSync('./TEST/temp/bestComments.json', JSON.stringify(this.bestComments));
+    this.pfArrs = pfArrs;
+    this.bcObjs = bcObjs;
   },
 
-  // 인덱스로 해당되는 플랫폼 정보 스크랩
-  funcGetPlatform: async function (page, idx) {
-    console.log('4-0-1-1--1');
-    const pSelectors = [
-      this.selectors.platformPage.kakaoPage,
-      this.selectors.platformPage.munpia,
-      this.selectors.platformPage.naverSeries,
-      this.selectors.platformPage.ridibooks
-    ]
-    console.log('4-0-1-1--2');
-    const promises = await Promise.all(Object.values(pSelectors[idx]).map((el => {
-      if (el === pSelectors[idx].image) return page.$eval(el, e => e.src);
+  // TEST OK
+  funcGetPlatform: async function (page, pf) {
+    const promises = await Promise.all(Object.values(pf).map(el => {
+      if (el === pf.image) return page.$eval(el, e => e.src);
       return page.$eval(el, e => e.innerHTML);
-    })));
-    console.log('4-0-1-1--3');
-    const obj = Object.keys(pSelectors[idx]).reduce((obj, t, i) => (obj[t] = promises[i], obj), {});
-    console.log('4-0-1-1--4');
+    }));
+    const obj = Object.keys(pf).reduce((obj, t, i) => (obj[t] = promises[i], obj), {});
     return obj;
   },
 
-  //
+  // TEST OK
   funcPlatformPage: async function (browser) {
-    console.log('4-0');
-    const pList = ['카카오페이지', '문피아', '네이버시리즈', '리디북스'];
-    const infosLen = this.platformInfos.length;
-    for (let i=0; i<infosLen; i+=1) {
-      const tmpPList = pList;
-      console.log('4-0-0');
-      await Promise.all(this.platformInfos[i].map(async obj => {
-        console.log('4-0-1-0');
+    const ppS = this.selectors.platformPage;
+    const names = ['카카오페이지', '문피아', '네이버시리즈', '리디북스'];
+    const pfArrs = this.pfArrs;
+    const ArrsLen = pfArrs.length;
+    for (let i=0,
+             ppV=Object.values(ppS),
+             tmpNames=names,
+             tmpArrs=pfArrs,
+             gnp=this.funcGetNewPage,
+             gpf=this.funcGetPlatform; i<ArrsLen; ++i) {
+      await Promise.all(tmpArrs[i].map(async obj => {
         const page = await this.funcGetNewPage(browser, obj.url);
-        console.log('4-0-1-1');
-        const idx = tmpPList.findIndex(el => el === obj.name);
-        console.log('4-0-1-2', obj, idx, tmpPList[idx]);
-        Object.assign(obj, await this.funcGetPlatform(page, idx));
-        console.log('4-0-1-3');
+        const j = tmpNames.findIndex(el => el === obj.name);
+        Object.assign(obj, await gpf(page, ppV[j]));
         await page.close();
-      })).catch(err => err ? console.error(`Error in funcPlatformPage promises:\n${err}`) : console.log('funcPlatformPage promises OK.'));
+      }))
+      .catch(err => {
+        if (err) {
+          return console.error(`Error in funcPlatformPage:\n${err}`);
+        }
+      })
     }
-    console.log('4-1');
-    this.fs.writeFileSync('./TEST/temp/platformInfos.json', JSON.stringify(this.platformInfos));
   },
 
-  funcWriteJSON: function () {
-    this.fs.writeFileSync('./TEST/temp/commentObjs.json', JSON.stringify(this.commentObjs));
-    this.fs.writeFileSync('./TEST/temp/productObjs.json', JSON.stringify(this.productObjs));
-    this.fs.writeFileSync('./TEST/temp/platformInfos.json', JSON.stringify(this.platformInfos));
-    this.fs.writeFileSync('./TEST/temp/bestComments.json', JSON.stringify(this.bestComments));
+  // TEST OK
+  funcWriteJSON: function (pUp) {
+    console.log('funcWriteJSON 1');
+    for (let i=0, pObjs=this.pObjs, bcObjs=this.bcObjs, pfArrs=this.pfArrs; i<pUp; ++i) {
+      pObjs[i].bestComment = bcObjs[i];
+      pObjs[i].platform = pfArrs[i];
+    }
+
+    console.log('funcWriteJSON 2');
+    fs.writeFileSync('./TEST/temp/tmpCObjs.json', JSON.stringify(this.cObjs));
+    fs.writeFileSync('./TEST/temp/tmpPObjs.json', JSON.stringify(this.pObjs));
   },
 
-  funcSaveDocs: function () {
-    const oList = [this.commentObjs, this.productObjs, this.bestComments, this.platformInfos];
-    const mList = [this.models.Comment, this.models.Product, this.models.BestComment, this.models.PlatformInfo]
-    const len = oList.length;
-
-    for (let i=0; i<len; i+=1) {
-      const tmpMList = mList;
-      oList[i].forEach(el => {
-        const doc = new tmpMList[i](el);
-        doc.save(err => err ? console.error(err.message) : console.log(`Info's saved in DB`));
-      });
-      console.log(`ok ${i}`);
+  // TEST OK
+  funcSaveDocs: function (cUp, pUp) {
+    for (let i=0,
+             objs=this.cObjs,
+             Model=this.models.Comment; i<cUp; ++i) {
+      const doc = new Model(objs[i]);
+      doc.save(err => err ? console.error(err.message) : console.log(`cObj saved in Mongo.`))
     }
-  }
+
+    for (let i=0,
+             objs=this.pObjs,
+             Model=this.models.Product; i<pUp; ++i) {
+      const doc = new Model(objs[i]);
+      doc.save(err => err ? console.error(err.message) : console.log(`pObj saved in Mongo.`))
+    }
+  },
 }
 
 module.exports = apiController;
