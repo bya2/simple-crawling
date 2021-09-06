@@ -31,11 +31,11 @@
 
 ### 화면
 
-**`Browser`**
+### **`Browser`**
 
 ![Screenshot (1)](https://user-images.githubusercontent.com/61080445/131825028-21081fc4-dbe7-4fb8-89a4-2330367a932b.png)
 
-**`MongoDB Compass`**
+### **`MongoDB Compass`**
 
 ![image](https://user-images.githubusercontent.com/61080445/132224595-6ae78bb8-9005-4075-b8d2-63116ea2dc84.png)
 
