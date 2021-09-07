@@ -31,11 +31,26 @@
 
 ### 화면
 
-### **`Browser`**
+#### **`Browser`**
+`localhost:3000/`
+![Screenshot (7)](https://user-images.githubusercontent.com/61080445/132278292-e8cb5c18-93cd-4265-8e9c-00140e05b65b.png)
 
-![Screenshot (1)](https://user-images.githubusercontent.com/61080445/131825028-21081fc4-dbe7-4fb8-89a4-2330367a932b.png)
+`localhost:3000/`
+![ss1](https://user-images.githubusercontent.com/61080445/132324154-19805239-1ec1-4f31-aec4-3cded1998c85.png)
 
-### **`MongoDB Compass`**
+`localhost:3000/96275`
+![Screenshot (8)](https://user-images.githubusercontent.com/61080445/132278406-96b6fff9-bdfa-4f44-972b-aff7faf9cb4a.png)
+
+`localhost:3000/96275`
+![Screenshot (10)](https://user-images.githubusercontent.com/61080445/132324363-a93733fd-2e3c-4321-9429-2065c3b1e360.png)
+
+`localhost:3000/96275`
+![ss2-2](https://user-images.githubusercontent.com/61080445/132324298-39ef1c15-9243-4416-b5a6-f4570480d166.png)
+
+`localhost:3000/bc/96275`
+![ss3](https://user-images.githubusercontent.com/61080445/132324220-dddb871b-e2a0-469e-914e-2141ea5b84b5.png)
+
+#### **`MongoDB Compass`**
 
 ![image](https://user-images.githubusercontent.com/61080445/132224595-6ae78bb8-9005-4075-b8d2-63116ea2dc84.png)
 
@@ -44,7 +59,31 @@
 ![Products](https://user-images.githubusercontent.com/61080445/132225723-05a3a483-43de-4181-943d-59ddcc0cd0bf.png)
 
 ### 실행 
-#### 
+
+#### **
+`- Command`
+```sh
+$ npm run start
+```
+
+`- Files & Functions`
+```
+./public/
+./views/
+./db.js
+./models/
+./routes/
+./app.js (main)
+```
+
+`- Result`
+```
+위 브라우저 화면
+```
+
+
+#### **모든 페이지 스크랩**
+
 `- Command`
 ```sh
 $ npm run scrap
