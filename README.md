@@ -32,22 +32,22 @@
 ### 화면
 
 #### **`Browser`**
-`localhost:3000/`
+`localhost:3000/`  
 ![Screenshot (7)](https://user-images.githubusercontent.com/61080445/132278292-e8cb5c18-93cd-4265-8e9c-00140e05b65b.png)
 
-`localhost:3000/`
+`localhost:3000/`  
 ![ss1](https://user-images.githubusercontent.com/61080445/132324154-19805239-1ec1-4f31-aec4-3cded1998c85.png)
 
-`localhost:3000/96275`
+`localhost:3000/96275`  
 ![Screenshot (8)](https://user-images.githubusercontent.com/61080445/132278406-96b6fff9-bdfa-4f44-972b-aff7faf9cb4a.png)
 
-`localhost:3000/96275`
+`localhost:3000/96275`  
 ![Screenshot (10)](https://user-images.githubusercontent.com/61080445/132324363-a93733fd-2e3c-4321-9429-2065c3b1e360.png)
 
-`localhost:3000/96275`
+`localhost:3000/96275`  
 ![ss2-2](https://user-images.githubusercontent.com/61080445/132324298-39ef1c15-9243-4416-b5a6-f4570480d166.png)
 
-`localhost:3000/bc/96275`
+`localhost:3000/bc/96275`  
 ![ss3](https://user-images.githubusercontent.com/61080445/132324220-dddb871b-e2a0-469e-914e-2141ea5b84b5.png)
 
 #### **`MongoDB Compass`**
@@ -60,7 +60,7 @@
 
 ### 실행 
 
-#### **
+#### **애플리케이션 실행**
 `- Command`
 ```sh
 $ npm run start
