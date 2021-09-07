@@ -12,6 +12,7 @@ const db = require('./db');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/bc', express.static(path.join(__dirname, 'public')));
 
 app.engine('hbs', exphbs({ extname: 'hbs', defaultLayout: 'main' }));
 app.set('view engine', 'hbs');
