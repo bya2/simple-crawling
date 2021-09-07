@@ -136,3 +136,154 @@ a.stie {
   display: inline-block;
 }
 
+table {
+  margin-bottom: 20px;
+}
+
+.imgTable {
+  margin-top: 20px;
+}
+
+.cId {
+  width: 100px;
+}
+
+.updated {
+  width: 150px;
+}
+
+.inlineTable {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0px;
+}
+
+.new {
+  display: none;
+  position: fixed;
+  background: #d6d6d6;
+  width: 800px; 
+  height: 600px;
+  top: 100px;
+  left: 450px;
+  opacity: 95%;
+  box-shadow: 40px 40px 12px 6px rgb(0 0 0 / 50%);
+}
+
+.newClose {
+  position: fixed;
+  color: #FFFFFF;
+  top: 100px;
+  left: 1217px;
+  font-size: xx-large;
+  border-style: none;
+  background: #ff5e5e;
+}
+
+.bcButton {
+  background: #e6ff55;
+  font-size: x-small;
+}
+
+.bcTable {
+  margin-top: 20px;
+  /* margin-left: 10px;
+  margin-right: 10px; */
+  
+}
+
+.bcTop {
+  font-size: x-large;
+}
+
+.bcH1 {
+  font-family: fantasy;
+  font-size: xx-large;
+  margin-top: 20px;
+}
+
+.hidden {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  width: 600px;
+  height: 200px;
+}
+
+.bcTable.inline {
+  margin-top: 0px;
+  display: inline-block;
+}
+
+.bcTable.inline.color {
+  margin-left: 20px;
+  color: #000000;
+  background: rgb(255, 255, 255)
+}
+
+.borderColor {
+  border-color: #ff0000;
+  font-size: larger;
+}
+
+a:link {
+  color : black;
+  text-decoration: none;
+}
+
+a:visited {
+  color : black;
+  text-decoration: none;
+}
+
+a:hover {
+  color : red;
+  text-decoration: underline;
+}
+
+a:active {
+  color : green;
+  text-decoration: none;
+}
+
+a:hover.bcContent  {
+  color: rgb(57, 76, 112);
+  text-decoration: underline;
+}
+
+button:hover {
+  color : red;
+  text-decoration: underline;
+}
+
+.t3 {
+  margin-top: 30px;
+}
+
+.b3.inline {
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.btnT3 {
+  border-color: #000000;
+  font-size: x-large;
+  background-color: #ff5e5e;
+  width: 400px;
+  height: 40px;
+  vertical-align: 40px;
+  border-radius: 10px;
+}
+
+.a31 {
+  background-color: rgb(172, 172, 255);
+  color: #d6d6d6;
+}
+
+.a33 {
+  background-color: #917575;
+}
+
+.t3c {
+  font-size: small;
+}

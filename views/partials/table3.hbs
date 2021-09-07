@@ -1,0 +1,37 @@
+<h1 class="bcH1">Best Comment</h1>
+
+<table class="t3 inline">
+  <tr>
+    <th>No</th>
+    <th>닉네임</th>
+    <th>평점</th>
+    <th>공감</th>
+    <th>비공감</th>
+    <th>업데이트</th>
+  </tr>
+  <tr>
+    <td width="150px">{{doc_bc._doc.commentId}}</td>
+    <td width="100px">{{doc_bc._doc.nickname}}</td>
+    <td width="50px">{{doc_bc._doc.rate}}</td>
+    <td width="50px">{{doc_bc._doc.good}}</td>
+    <td width="50px">{{doc_bc._doc.bad}}</td>
+    <td width="150px">{{doc_bc._doc.updated}}</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>내용</th>
+  </tr>
+  <tr>
+    <td width="1200px" class="t3c">{{doc_bc._doc.content}}</td>
+  </tr>
+</table>
+
+<div class="b3 inline">
+  <button class="btnT3 a31">
+    <a href={{url}}>
+      작품 페이지로 가기
+    </a>
+  </button>
+</div>

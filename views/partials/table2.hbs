@@ -1,0 +1,113 @@
+<table class="imgTable">
+  <tr>
+    <th colspan="10">플랫폼 별 이미지</th>
+  </tr>
+  <tr>
+    <th>소설넷</th>
+    {{#each doc_platform}}<th>{{this._doc.name}}</th>{{/each}}
+  </tr>
+  <tr>
+    <td><a href="{{doc_product._doc.url}}"><img src="{{doc_product._doc.image}}" width="250px" height="auto"></a></td>
+    {{#each doc_platform}}<td><a href="{{doc_product._doc.url}}"><img src="{{this._doc.image}}" width="250px" height="auto"></a></td>{{/each}}
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th width="100px">제목</th>
+    <th width="100px">작가</th>
+    <th width="100px">장르</th>
+  </tr>
+  <tr>
+    <th>{{doc_product._doc.title}}</th>
+    <th>{{doc_product._doc.author}}</th>
+    <th>
+      {{#each doc_product._doc.categories}}
+        {{this}}<br>
+      {{/each}}
+    </th>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th colspan="10">소설넷</th>
+  </tr>
+  <tr height="30px">
+    <th width="100px">평점</th>
+    <th width="100px">참여자 수</th>
+    <th width="100px">베스트 코멘트</th>
+  </tr>
+  <tr height="50px">
+    <th>{{doc_product._doc.rate}}</th>
+    <th>{{doc_product._doc.count}}</th>
+    {{!-- <th><a href="./{{doc_product._doc.productId}}/bestcomment">{{doc_product._doc.bestComment._doc.commentId}}</a></th> --}}
+    <th class="bc"><button class="bcButton">{{doc_product._doc.bestComment._doc.commentId}}</button></th>
+  </tr>
+</table>
+
+{{#if doc_platform}}
+  {{#each doc_platform}}
+    <table class="inlineTable">
+      <tr>
+        <th colspan="10">{{this._doc.name}}</th>
+      </tr>
+      <tr height="30px">
+        {{#if this._doc.views}}
+          <th width="100px">조회 수</th>
+        {{/if}}
+        {{#if this._doc.viewers}}
+          <th width="100px">구독 수</th>
+        {{/if}}
+        {{#if this._doc.preferred}}
+          <th width="100px">선호 수</th>
+        {{/if}}
+        {{#if this._doc.recommended}}
+          <th width="100px">추천 수</th>
+        {{/if}}
+        {{#if this._doc.rate}}
+          <th width="100px">평점</th>
+        {{/if}}
+        {{#if this._doc.participants}}
+          <th width="100px">평점</th>
+        {{/if}}
+        {{#if this._doc.comments}}
+          <th width="100px">댓글 수</th>
+        {{/if}}
+      </tr>
+      <tr height="50px">
+        {{#if this._doc.views}}
+          <th>{{this._doc.views}}</th>
+        {{/if}}
+        {{#if this._doc.viewers}}
+          <th>{{this._doc.viewers}}</th>
+        {{/if}}
+        {{#if this._doc.preferred}}
+          <th>{{this._doc.preferred}}</th>
+        {{/if}}
+        {{#if this._doc.recommended}}
+          <th>{{this._doc.recommended}}</th>
+        {{/if}}
+        {{#if this._doc.rate}}
+          <th>{{this._doc.rate}}</th>
+        {{/if}}
+        {{#if this._doc.participants}}
+          <th>{{this._doc.participants}}</th>
+        {{/if}}
+        {{#if this._doc.comments}}
+          <th>{{this._doc.comments}}</th>
+        {{/if}}
+      </tr>
+    </table>
+  {{/each}}
+{{/if}}
+
+<table>
+  <th>
+    INTRODUCTION
+  </th>
+  <tr>
+    <td>{{doc_product._doc.introduction}}</td>
+  </tr>
+
+</table>

@@ -1,34 +1,49 @@
 // Hide (Header-Inner)
 const headerInner = document.querySelector('.header-inner');
+const newDiv = document.querySelector('.new');
+const newDivClose = document.querySelector('.newClose')
+const bcButton = document.querySelector('.bcButton');
 
-let isInner = false;
-let displayInner = false;
+const isDiv = false;
 
-document.addEventListener('click', () => {
-  if (isInner) {
-    if (displayInner) {
-      headerInner.style.display = 'none';
-    } else {
-      headerInner.style.display = 'block';
-    }
-  }
+newDivClose.addEventListener('click', () => {
+  newDiv.style.display = 'none';
+  newDivClose.style.display = 'none';
+});
+
+bcButton.addEventListener('click', () => {
+  newDiv.style.display = 'block';
+  newDivClose.style.display = 'block';
 })
 
-document.addEventListener('scroll', () => {
-  const currScroll = document.documentElement.scrollTop;
+// let isInner = false;
+// let displayInner = false;
 
-  console.log(currScroll);
+// document.addEventListener('click', () => {
+//   if (isInner) {
+//     if (displayInner) {
+//       headerInner.style.display = 'none';
+//     } else {
+//       headerInner.style.display = 'block';
+//     }
+//   }
+// })
 
-  if (!isInner && currScroll > 120) {
-    headerInner.style.position = 'fixed';
-    isInner = true;
-  }
+// document.addEventListener('scroll', () => {
+//   const currScroll = document.documentElement.scrollTop;
 
-  if (isInner && currScroll === 0) {
-    headerInner.style.position = 'absolute';
-    isInner = false;
-  }
-});
+//   console.log(currScroll);
+
+//   if (!isInner && currScroll > 120) {
+//     headerInner.style.position = 'fixed';
+//     isInner = true;
+//   }
+
+//   if (isInner && currScroll === 0) {
+//     headerInner.style.position = 'absolute';
+//     isInner = false;
+//   }
+// });
 
 
 // Clock

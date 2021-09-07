@@ -1,0 +1,59 @@
+<div class="new">
+  <button class='newClose' onclick="clickClose()">X</button>
+
+  <h1 class="bcH1">Best Comment</h1>
+
+  <table class='bcTable'>
+    <tr>
+      <th colspan="10">{{doc_bestComment._doc.commentId}}</th>
+    </tr>
+    <tr>
+      <th>닉네임</th>
+      <th width="100px">{{doc_bestComment._doc.nickname}}</th>
+    </tr>
+    <tr>
+      <th>평점</th>
+      <th width="100px">{{doc_bestComment._doc.rate}}</th>
+    </tr>
+      <th>업데이트</th>
+      <th width="150px">{{doc_bestComment._doc.updated}}</th>
+  </table>
+
+  <table class='bcTable'>
+    <tr>
+      <th>내용</th>
+    </tr>
+    <tr>
+      <th>
+        <div class="hidden">
+          <a href="./bc/{{doc_product._doc.productId}}" class="bcContent">
+            {{doc_bestComment._doc.content}}
+          </a>
+        </div>
+      </th>
+    </tr>
+  </table>
+
+  <table class="bcTable inline">
+    <tr>
+      <th width="40px">공감</th>
+      <th width="50px">{{doc_bestComment._doc.good}}</th>
+    </tr>
+  </table>
+
+  <table class="bcTable inline">
+    <tr>
+      <th width="40px">비공감</th>
+      <th width="50px">{{doc_bestComment._doc.bad}}</th>
+    </tr>
+  </table>
+
+  <table class="bcTable inline color">
+    <tr>
+      <th width="40px" class="borderColor">
+        <a href="">신고</a>
+      </th>
+    </tr>
+  </table>
+</div>
+

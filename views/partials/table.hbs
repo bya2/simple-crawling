@@ -11,7 +11,7 @@
     <!-- Rows -->
     {{#each docs}}
       <tr class="contents">
-        <td>
+        <td class="cId">
           {{this._doc.commentId}}
         </td>
         <td>
@@ -23,12 +23,12 @@
         <td>
           {{this._doc.rate}}
         </td>
-        <td>
+        <td class="updated">
           {{this._doc.updated}}
         </td>
         <td>
-          <a href="/{{this._doc.productId}}">
-            go
+          <a href="./{{this._doc.productId}}">
+            {{this._doc.title}}
           </a>
         </td>
       </tr>
