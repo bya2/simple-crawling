@@ -45,7 +45,7 @@ const pdSchema = new mongoose.Schema({
   rate: Number,
   count: Number,
   bestComment: bcSchema,
-  platform: [[pfSchema]],
+  platform: [pfSchema],
 })
 
 module.exports = mongoose.model('Product', pdSchema);
